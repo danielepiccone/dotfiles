@@ -2,4 +2,7 @@
 
 cd ~
 ln -s dotfiles/.screenrc .screenrc
-ln -s dotfiles/.vimrc .vimrc
+#ln -s dotfiles/.vimrc .vimrc
+cd /etc
+ln -s ~/dotfiles/.vimrc vimrc
+cd ~
