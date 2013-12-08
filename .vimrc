@@ -129,3 +129,6 @@ imap <F6> <Esc>:SCCompileRun<CR>
 " au BufRead,BufNewFile *.pde     setf java
 
 set sel=inclusive
+
+" Pathogen
+execute pathogen#infect()
