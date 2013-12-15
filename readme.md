@@ -1,3 +1,5 @@
 # Dotfiles
 
-deploy in ~/dotfiles and get comfortable
+deploy in ~/dotfiles
+
+run ./link.sh to propagate settings
