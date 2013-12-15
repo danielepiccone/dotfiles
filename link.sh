@@ -1,8 +1,11 @@
 #!/usr/bin/bash
 
 cd ~
+echo "Linking .screenrc";
 ln -s dotfiles/.screenrc .screenrc
-#ln -s dotfiles/.vimrc .vimrc
+echo "Linking .vimrc";
+ln -s dotfiles/.vimrc .vimrc
+
 cd /etc
 ln -s ~/dotfiles/.vimrc vimrc
 cd ~

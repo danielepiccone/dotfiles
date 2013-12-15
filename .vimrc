@@ -106,7 +106,7 @@ set whichwrap=b,s,<,>,[,]
 " vim: set ft=vim :
 
 " Customization, for cygwin/mintty
-colors slate
+colors desert
 behave xterm
 set nu
 set nobackup
@@ -129,6 +129,9 @@ imap <F6> <Esc>:SCCompileRun<CR>
 " au BufRead,BufNewFile *.pde     setf java
 
 set sel=inclusive
+
+" Gui Font
+set guifont=Droid\ Sans\ Mono\ 10
 
 " Pathogen
 execute pathogen#infect()
