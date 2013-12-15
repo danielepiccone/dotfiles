@@ -100,10 +100,11 @@ set hlsearch
 set incsearch
 set keymodel=startsel,stopsel
 set ruler
-set selection=exclusive
+" set selection=exclusive
 set selectmode=mouse,key
 set whichwrap=b,s,<,>,[,]
-" vim: set ft=vim :
+set sel=inclusive
+
 
 " Customization, for cygwin/mintty
 colors desert
@@ -114,7 +115,6 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-cd ~/Documents
 
 " Compiler
 map <F5> :silent SCCompileRun<CR>
@@ -128,10 +128,21 @@ imap <F6> <Esc>:SCCompileRun<CR>
 " map <F7> :!c:\processing\processing-java.exe --sketch=%:p:h --output=c:\dump --run --force <CR><CR>
 " au BufRead,BufNewFile *.pde     setf java
 
-set sel=inclusive
 
-" Gui Font
+" Gui
 set guifont=Droid\ Sans\ Mono\ 10
 
+" On Windows, also use '.vim' instead of 'vimfiles'; this makes
+" synchronization
+" across (heterogeneous) systems easier.
+if has('win32') || has('win64')
+    set guifont=Droid\ Sans\ Mono:h10:cANSI
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+
+" Startup
+cd ~/Documents
+
 " Pathogen
+" all bundles in ~/.vim/bundles
 execute pathogen#infect()
