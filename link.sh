@@ -9,6 +9,7 @@ ln -s dotfiles/.screenrc .screenrc
 
 echo "Copying VIM settings for Cygwin & Win32";
 cp dotfiles/.vimrc .vimrc
+cp dotfiles/.bashrc .bashrc
 
 #cd /etc
 #ln -s ~/dotfiles/.vimrc vimrc
