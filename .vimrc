@@ -130,13 +130,13 @@ imap <F6> <Esc>:SCCompileRun<CR>
 
 
 " Gui
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=DejaVu\ Sans\ Mono\ 10
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization
 " across (heterogeneous) systems easier.
 if has('win32') || has('win64')
-    set guifont=Droid\ Sans\ Mono:h10:cANSI
+    set guifont=DejaVu\ Sans\ Mono:h10:cANSI
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
