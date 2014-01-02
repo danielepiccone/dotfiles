@@ -142,6 +142,7 @@ endif
 
 " Startup
 cd ~/Documents
+set autochdir
 
 " Pathogen
 " all bundles in ~/.vim/bundles
