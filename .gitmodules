@@ -10,3 +10,6 @@
 [submodule "bundle/vim-css-indent"]
 	path = bundle/vim-css-indent
 	url = git@github.com:dpiccone/vim-css-indent.git
+[submodule "bundle/vim-less"]
+	path = bundle/vim-less
+	url = git@github.com:groenewege/vim-less.git
