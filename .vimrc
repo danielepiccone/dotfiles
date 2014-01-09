@@ -93,7 +93,6 @@ set background=dark
 set backspace=indent,eol,start
 set backup
 set diffexpr=MyDiff()
-set guifont=Inconsolata:h12:cANSI
 set helplang=En
 set history=50
 set hlsearch
@@ -106,15 +105,6 @@ set whichwrap=b,s,<,>,[,]
 set sel=inclusive
 
 
-" Customization, for cygwin/mintty
-colors desert
-behave xterm
-set nu
-set nobackup
-set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
 
 " Compiler
 map <F5> :silent SCCompileRun<CR>
@@ -139,6 +129,16 @@ if has('win32') || has('win64')
     set guifont=DejaVu\ Sans\ Mono:h10:cANSI
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
+
+" Customization, for cygwin/mintty
+colors wombat
+behave xterm
+set nu
+set nobackup
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
 " Startup
 cd ~/Documents
