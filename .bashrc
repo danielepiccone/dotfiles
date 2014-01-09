@@ -36,3 +36,6 @@ PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_
 
 # Aliases
 alias ls="ls --color"
+
+# Export
+export TERM=xterm-256color
