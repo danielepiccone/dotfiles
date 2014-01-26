@@ -1,16 +1,28 @@
 #!/usr/bin/bash
 
-cd ~
-echo "Linking .screenrc";
-ln -s dotfiles/.screenrc .screenrc
+git submodule init;
+git submodule update;
 
-#echo "Linking .vimrc";
-#ln -s dotfiles/.vimrc .vimrc
+echo "Copying .screenrc";
+cp ~/dotfiles/.screenrc ~/.screenrc
 
-echo "Copying VIM settings for Cygwin & Win32 compatibility";
-cp dotfiles/.vimrc .vimrc
-cp dotfiles/.bashrc .bashrc
+echo "Copying VIM settings";
+cp ~/dotfiles/.vimrc ~/.vimrc
+cp ~/dotfiles/.bashrc ~/.bashrc
+
+echo "Installing pathogen"
+mkdir -p ~/.vim/autoload ~/.vim/bundle; 
+cp -r ~/dotfiles/pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
+
+echo "Copying VIM bundles";
+cp -r ~/dotfiles/bundle/ ~/.vim/
+
+echo "Copying VIM colors";
+cp -r ~/dotfiles/colors/ ~/.vim/
+
 
 #cd /etc
 #ln -s ~/dotfiles/.vimrc vimrc
 #cd ~
+
+echo "End.";
