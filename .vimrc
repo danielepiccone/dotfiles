@@ -120,7 +120,7 @@ imap <F6> <Esc>:SCCompileRun<CR>
 
 
 " Gui
-set guifont=DejaVu\ Sans\ Mono\ 10
+set guifont=DejaVu\ Sans\ Mono\ 9
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization
@@ -131,7 +131,7 @@ if has('win32') || has('win64')
 endif
 
 " Customization, for cygwin/mintty
-colors wombat
+colors molokai
 behave xterm
 set nu
 set nobackup
