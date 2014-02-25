@@ -6,9 +6,11 @@ git submodule update;
 echo "Copying .screenrc";
 cp ~/dotfiles/.screenrc ~/.screenrc
 
+echo "Copying .bashrc";
+cp ~/dotfiles/.bashrc ~/.bashrc
+
 echo "Copying VIM settings";
 cp ~/dotfiles/.vimrc ~/.vimrc
-cp ~/dotfiles/.bashrc ~/.bashrc
 
 echo "Installing pathogen"
 mkdir -p ~/.vim/autoload ~/.vim/bundle; 
