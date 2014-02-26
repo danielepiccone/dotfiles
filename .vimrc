@@ -104,7 +104,8 @@ set selectmode=mouse,key
 set whichwrap=b,s,<,>,[,]
 set sel=inclusive
 
-
+" Commands remapping
+cabbrev E Explore
 
 " Compiler
 map <F5> :silent SCCompileRun<CR>
@@ -117,7 +118,6 @@ imap <F6> <Esc>:SCCompileRun<CR>
 " Processing
 " map <F7> :!c:\processing\processing-java.exe --sketch=%:p:h --output=c:\dump --run --force <CR><CR>
 " au BufRead,BufNewFile *.pde     setf java
-
 
 " Gui
 set guifont=DejaVu\ Sans\ Mono\ 9
