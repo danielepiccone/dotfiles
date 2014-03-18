@@ -142,7 +142,10 @@ set tabstop=4
 
 " Startup
 cd ~/Documents
-set autochdir
+
+" TODO this cause a bug in the html syntax with netrw
+" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+" set autochdir 
 
 " Pathogen
 " all bundles in ~/.vim/bundles
