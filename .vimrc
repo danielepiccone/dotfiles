@@ -146,6 +146,11 @@ cd ~/Documents
 " TODO this cause a bug in the html syntax with netrw
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
 " set autochdir 
+autocmd BufEnter * silent! lcd %:p:h
+
+" Workaround for Karma runner
+" https://github.com/karma-runner/karma/issues/199
+set backupcopy=yes
 
 " Pathogen
 " all bundles in ~/.vim/bundles
