@@ -16,6 +16,10 @@ sudo apt-get install flashplugin-installer
 ### Install Adobe air
 http://askubuntu.com/questions/87447/how-can-i-install-adobe-air
 
+**64 bit**
+
+http://www.tkalin.com/blog_posts/installing-adobe-air-and-elance-tracker-on-ubuntu-13-10-saucy-salamander-64-bit
+
 wget http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRInstaller.bin
 
 chmod +x AdobeAIRInstaller.bin
