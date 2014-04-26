@@ -155,3 +155,9 @@ set backupcopy=yes
 " Pathogen
 " all bundles in ~/.vim/bundles
 execute pathogen#infect()
+
+""" Preprocessors auto-compile
+autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c <afile>
+
+" this needs node-less - sudo apt-get install node-less
+autocmd BufWritePost,FileWritePost *.less silent !lessc <afile> <afile>:r.css
