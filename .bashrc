@@ -39,3 +39,4 @@ alias ls="ls --color"
 
 # Export
 export TERM=xterm-256color
+export NODE_ENV=development
