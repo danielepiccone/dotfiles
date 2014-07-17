@@ -54,3 +54,7 @@ curlftpfs -o allow_other,disable_epsv,ftp_port=-,skip_pasv_ip,user=$1 ftp://$2 .
 ### Install Ctags
 
 sudo apt-get install exuberant-ctags
+
+### Install MS core fonts
+sudo apt-get install ttf-mscorefonts-installer
+
