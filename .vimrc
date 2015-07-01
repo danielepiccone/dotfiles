@@ -161,3 +161,6 @@ autocmd BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
 
 """ Coffeescript autocompiler
 autocmd BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
+
+""" Set knockoutjs extensions
+au BufNewFile,BufRead *.ko set filetype=html
