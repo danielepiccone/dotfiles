@@ -120,7 +120,7 @@ imap <F6> <Esc>:SCCompileRun<CR>
 " au BufRead,BufNewFile *.pde     setf java
 
 " Gui
-set guifont=DejaVu\ Sans\ Mono\ 9
+set guifont=Ubuntu\ Mono\ 13
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization
