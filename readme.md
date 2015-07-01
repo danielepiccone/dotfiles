@@ -2,7 +2,10 @@
 
 deploy in ~/dotfiles
 
-run ./link.sh to propagate settings
+install pathogen https://github.com/tpope/vim-pathogen
+
+run ./link.sh to propagate settings or copy all bundle in ~/.vim/bundle
+
 
 # Xubuntu specific
 
