@@ -134,7 +134,7 @@ endif
 colors molokai
 behave xterm
 set nu
-set nobackup
+"set nobackup
 set expandtab
 set shiftwidth=4
 set softtabstop=4
@@ -164,3 +164,10 @@ autocmd BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile>
 
 """ Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
+
+""" Set swap to another directory
+set backup
+silent execute '!mkdir -p "'.$HOME.'/.vim/tmp"'
+silent execute '!rm -f '.$HOME.'/.vim/tmp/*~'
+set backupdir=$HOME/.vim/tmp/
+set directory=$HOME/.vim/tmp/
