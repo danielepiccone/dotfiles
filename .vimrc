@@ -1,10 +1,7 @@
-" .vimrc file imported from gvim/mswin
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
 
-set diffexpr=MyDiff()
+" set diffexpr=MyDiff()
 function MyDiff()
     let opt = '-a --binary '
     if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
@@ -29,82 +26,67 @@ function MyDiff()
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-version 6.0
-if &cp | set nocp | endif
+" cnoremap <C-F4> c
+" inoremap <C-F4> c
+" cnoremap <C-Tab> w
+" inoremap <C-Tab> w
+" cmap <S-Insert> +
+" imap <S-Insert> 
+" xnoremap  ggVG 
+
+" snoremap  gggHG
+" onoremap  gggHG
+" nnoremap  gggHG
+" vnoremap  "+y
+" noremap  
+" vnoremap  :update
+
+" nnoremap  :update
+
+" onoremap  :update
+
+" nmap  "+gP
+" omap  "+gP
+" vnoremap  "+x
+" noremap  
+" noremap  u
+" cnoremap   :simalt ~
+
+" inoremap   :simalt ~
+
+" map Q gq
+" nmap gx <Plug>NetrwBrowseX
+" nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+
+" onoremap <C-F4> c
+" nnoremap <C-F4> c
+" vnoremap <C-F4> c
+" onoremap <C-Tab> w
+" nnoremap <C-Tab> w
+" vnoremap <C-Tab> w
+" vmap <S-Insert> 
+" vnoremap <BS> d
+" vmap <C-Del> "*d
+" vnoremap <S-Del> "+x
+" vnoremap <C-Insert> "+y
+" nmap <S-Insert> "+gP
+" omap <S-Insert> "+gP
+" cnoremap  gggHG
+" inoremap  gggHG
+" inoremap  :update
+
+" inoremap  u
+" cmap  +
+" inoremap  
+" inoremap  u
+" noremap   :simalt ~
+
 let s:cpo_save=&cpo
 set cpo&vim
-cnoremap <C-F4> c
-inoremap <C-F4> c
-cnoremap <C-Tab> w
-inoremap <C-Tab> w
-cmap <S-Insert> +
-imap <S-Insert> 
-xnoremap  ggVG
-snoremap  gggHG
-onoremap  gggHG
-nnoremap  gggHG
-vnoremap  "+y
-noremap  
-vnoremap  :update
-
-nnoremap  :update
-
-onoremap  :update
-
-nmap  "+gP
-omap  "+gP
-vnoremap  "+x
-noremap  
-noremap  u
-cnoremap   :simalt ~
-
-inoremap   :simalt ~
-
-map Q gq
-nmap gx <Plug>NetrwBrowseX
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-
-onoremap <C-F4> c
-nnoremap <C-F4> c
-vnoremap <C-F4> c
-onoremap <C-Tab> w
-nnoremap <C-Tab> w
-vnoremap <C-Tab> w
-vmap <S-Insert> 
-vnoremap <BS> d
-vmap <C-Del> "*d
-vnoremap <S-Del> "+x
-vnoremap <C-Insert> "+y
-nmap <S-Insert> "+gP
-omap <S-Insert> "+gP
-cnoremap  gggHG
-inoremap  gggHG
-inoremap  :update
-
-inoremap  u
-cmap  +
-inoremap  
-inoremap  u
-noremap   :simalt ~
-
 let &cpo=s:cpo_save
 unlet s:cpo_save
-set background=dark
-set backspace=indent,eol,start
-set backup
-set diffexpr=MyDiff()
-set helplang=En
-set history=50
-set hlsearch
-set incsearch
-set keymodel=startsel,stopsel
-set ruler
-" set selection=exclusive
-set selectmode=mouse,key
-set whichwrap=b,s,<,>,[,]
-set sel=inclusive
 
-" Commands remapping
+" Commands remapping, conflicting with Emmet
 cabbrev E Explore
 
 " Compiler
@@ -123,18 +105,32 @@ imap <F6> <Esc>:SCCompileRun<CR>
 set guifont=Ubuntu\ Mono\ 13
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
-" synchronization
-" across (heterogeneous) systems easier.
+" synchronization across systems easier.
 if has('win32') || has('win64')
     set guifont=DejaVu\ Sans\ Mono:h10:cANSI
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
-" Customization, for cygwin/mintty
-colors molokai
+" Customization
+colors default
 behave xterm
-set nu
-"set nobackup
+set nonu
+set backspace=indent,eol,start
+set helplang=En
+set history=50
+set hlsearch
+set incsearch
+
+" Use shift+arrow to start visual mode
+" set keymodel=startsel,stopsel
+
+set ruler
+" set selection=exclusive
+set selectmode=mouse,key
+set whichwrap=b,s,<,>,[,]
+set sel=inclusive
+
+" Coding style
 set expandtab
 set shiftwidth=4
 set softtabstop=4
@@ -156,16 +152,16 @@ set backupcopy=yes
 " all bundles in ~/.vim/bundles
 execute pathogen#infect()
 
-""" Less autocompiler
+" Less autocompiler
 autocmd BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
 
-""" Coffeescript autocompiler
+" Coffeescript autocompiler
 autocmd BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
 
-""" Set knockoutjs extensions
+" Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
 
-""" Set swap to another directory
+" Set swap to another directory
 set backup
 silent execute '!mkdir -p "'.$HOME.'/.vim/tmp"'
 silent execute '!rm -f '.$HOME.'/.vim/tmp/*~'
