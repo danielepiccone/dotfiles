@@ -161,6 +161,9 @@ autocmd BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile>
 " Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
 
+" Disable persistent undo
+set noundofile
+
 " Set swap to another directory
 set backup
 silent execute '!mkdir -p "'.$HOME.'/.vim/tmp"'
