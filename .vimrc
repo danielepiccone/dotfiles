@@ -37,7 +37,6 @@ endfunction
 " snoremap  gggHG
 " onoremap  gggHG
 " nnoremap  gggHG
-" vnoremap  "+y
 " noremap  
 " vnoremap  :update
 
@@ -45,14 +44,12 @@ endfunction
 
 " onoremap  :update
 
-" nmap  "+gP
-" omap  "+gP
 " vnoremap  "+x
 " noremap  
 " noremap  u
-" cnoremap   :simalt ~
+" cnoremap  :simalt ~
 
-" inoremap   :simalt ~
+" inoremap  :simalt ~
 
 " map Q gq
 " nmap gx <Plug>NetrwBrowseX
@@ -85,6 +82,11 @@ let s:cpo_save=&cpo
 set cpo&vim
 let &cpo=s:cpo_save
 unlet s:cpo_save
+
+" Support clipboard copy/paste
+nmap  "+gP
+omap  "+gP
+vnoremap  "+y
 
 " Commands remapping, conflicting with Emmet
 cabbrev E Explore
@@ -170,3 +172,7 @@ silent execute '!mkdir -p "'.$HOME.'/.vim/tmp"'
 silent execute '!rm -f '.$HOME.'/.vim/tmp/*~'
 set backupdir=$HOME/.vim/tmp/
 set directory=$HOME/.vim/tmp/
+
+" Set pastetoggle
+set pastetoggle=<F2>
+
