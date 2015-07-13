@@ -176,3 +176,5 @@ set directory=$HOME/.vim/tmp/
 " Set pastetoggle
 set pastetoggle=<F2>
 
+" Strip trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
