@@ -1,9 +1,9 @@
-# To the extent possible under law, the author(s) have dedicated all 
-# copyright and related and neighboring rights to this software to the 
-# public domain worldwide. This software is distributed without any warranty. 
-# You should have received a copy of the CC0 Public Domain Dedication along 
-# with this software. 
-# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+# To the extent possible under law, the author(s) have dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide. This software is distributed without any warranty.
+# You should have received a copy of the CC0 Public Domain Dedication along
+# with this software.
+# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 # base-files version 4.1-1
 
@@ -37,9 +37,10 @@ PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_
 # Aliases
 alias ls="ls --color"
 
+# Definitions
+nodetool() { docker exec $1 nodetool ${*:2}; }
+cqlsh() { docker exec -it $1 cqlsh `docker inspect --format "{{ .NetworkSettings.IPAddress }}" $1` ${*:2}; }
+
 # Export
 export TERM=xterm-256color
 export NODE_ENV=development
-
-export NVM_DIR="/home/daniele/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
