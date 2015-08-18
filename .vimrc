@@ -32,7 +32,7 @@ endfunction
 " inoremap <C-Tab> w
 " cmap <S-Insert> +
 " imap <S-Insert> 
-" xnoremap  ggVG 
+" xnoremap  ggVG
 
 " snoremap  gggHG
 " onoremap  gggHG
@@ -114,14 +114,18 @@ if has('win32') || has('win64')
 endif
 
 " Customization
-colors default
 behave xterm
+colors default
 set nonu
 set backspace=indent,eol,start
 set helplang=En
 set history=50
 set hlsearch
 set incsearch
+
+" Some terminal color personalization
+hi Visual ctermfg=black
+hi Search ctermfg=black
 
 " Use shift+arrow to start visual mode
 " set keymodel=startsel,stopsel
@@ -143,7 +147,7 @@ cd ~/Documents
 
 " TODO this cause a bug in the html syntax with netrw
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
-" set autochdir 
+" set autochdir
 autocmd BufEnter * silent! lcd %:p:h
 
 " Workaround for Karma runner
