@@ -113,6 +113,7 @@ if has('win32') || has('win64')
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+
 " Customization
 behave xterm
 colors default
@@ -122,6 +123,10 @@ set helplang=En
 set history=50
 set hlsearch
 set incsearch
+
+if has('gui_running')
+    colors darkblue
+endif
 
 " Some terminal color personalization
 hi Visual ctermfg=black
