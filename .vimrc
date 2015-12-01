@@ -187,3 +187,6 @@ set pastetoggle=<F2>
 
 " Strip trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Enable extended JSX syntax in Javascript files
+let g:jsx_ext_required = 0
