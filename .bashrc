@@ -44,3 +44,10 @@ cqlsh() { docker exec -it $1 cqlsh `docker inspect --format "{{ .NetworkSettings
 # Export
 export TERM=xterm-256color
 export NODE_ENV=development
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+# RVM
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

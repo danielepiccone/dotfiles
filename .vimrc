@@ -190,3 +190,14 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Enable extended JSX syntax in Javascript files
 let g:jsx_ext_required = 0
+
+" Enable custom standard linters in JS
+function SetSyntasticOneLint()
+    let g:syntastic_javascript_checkers = ['standard']
+    let g:syntastic_javascript_standard_exec = 'onelint'
+    let g:syntastic_javascript_standard_generic = 1
+endfunction
+
+
+""" Project specific
+autocmd BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticOneLint()
