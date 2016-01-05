@@ -117,10 +117,10 @@ endif
 " Customization
 behave xterm
 colors default
-set nonu
+set nu
 set backspace=indent,eol,start
 set helplang=En
-set history=50
+set history=100
 set hlsearch
 set incsearch
 
@@ -199,13 +199,12 @@ function SetSyntasticOneLint()
 endfunction
 
 
-let g:multi_cursor_use_default_mapping=0
-
 " Default mapping
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-m>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+"let g:multi_cursor_use_default_mapping=0
+"let g:multi_cursor_next_key='<C-n>'
+"let g:multi_cursor_prev_key='<C-m>'
+"let g:multi_cursor_skip_key='<C-x>'
+"let g:multi_cursor_quit_key='<Esc>'
 
 """ Project specific
 autocmd BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticOneLint()
