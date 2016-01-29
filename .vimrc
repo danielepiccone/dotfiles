@@ -117,7 +117,7 @@ endif
 " Customization
 behave xterm
 colors default
-set nu
+set nonu
 set backspace=indent,eol,start
 set helplang=En
 set history=100
@@ -198,6 +198,11 @@ function SetSyntasticOneLint()
     let g:syntastic_javascript_standard_generic = 1
 endfunction
 
+function SetSyntasticEsLint()
+    let g:syntastic_javascript_checkers = ['eslint']
+    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/professional-services/node_modules/.bin/eslint'
+endfunction
+
 
 " Default mapping
 "let g:multi_cursor_use_default_mapping=0
@@ -207,4 +212,4 @@ endfunction
 "let g:multi_cursor_quit_key='<Esc>'
 
 """ Project specific
-autocmd BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticOneLint()
+au BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticOneLint()
