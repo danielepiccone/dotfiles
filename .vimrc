@@ -212,4 +212,4 @@ endfunction
 "let g:multi_cursor_quit_key='<Esc>'
 
 """ Project specific
-au BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticOneLint()
+au BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticEsLint()
