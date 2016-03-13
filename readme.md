@@ -2,18 +2,19 @@
 
 deploy in ~/dotfiles
 
-```stow vim```
+```
+stow vim
+```
 
-install pathogen https://github.com/tpope/vim-pathogen
-
-run ./link.sh to propagate settings or copy all bundle in ~/.vim/bundle
-
+```
+./link.sh
+```
 
 # Xubuntu specific
 
 ### Install Adobe reader
 manually
- 
+
 ### Install Adobe flash
 
 sudo apt-get install flashplugin-installer
@@ -28,13 +29,13 @@ http://www.tkalin.com/blog_posts/installing-adobe-air-and-elance-tracker-on-ubun
 wget http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRInstaller.bin
 
 chmod +x AdobeAIRInstaller.bin
- 
+
 locate libgnome-keyring.so
- 
+
 sudo ln -s /usr/lib/i386-linux-gnu/libgnome-keyring.so.0 /usr/lib/libgnome-keyring.so.0
 
 sudo ln -s /usr/lib/i386-linux-gnu/libgnome-keyring.so.0.2.0 /usr/lib/libgnome-keyring.so.0.2.0
- 
+
 sudo rm /usr/lib/libgnome-keyring.so.0
 
 sudo rm /usr/lib/libgnome-keyring.so.0.2.0
@@ -51,7 +52,7 @@ sudo apt-get update
 sudo apt-get install oracle-java7-installer
 
 ### Mount folders with CurlFTPfs
- 
+
 mount_fftp.sh:
 
 curlftpfs -o allow_other,disable_epsv,ftp_port=-,skip_pasv_ip,user=$1 ftp://$2 ./ftp/$2
