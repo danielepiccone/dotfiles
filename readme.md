@@ -2,6 +2,8 @@
 
 deploy in ~/dotfiles
 
+```stow vim```
+
 install pathogen https://github.com/tpope/vim-pathogen
 
 run ./link.sh to propagate settings or copy all bundle in ~/.vim/bundle
