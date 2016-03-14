@@ -14,4 +14,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     ln -s ~/dotfiles/.bashrc ~/.bashrc
 fi
 
+read -p "Install z? (y/n) " -n 1
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Linking /bin/local/z";
+    ln -s ~/dotfiles/bin/z /usr/local/bin/z
+fi
+
 echo "Stay well.";
