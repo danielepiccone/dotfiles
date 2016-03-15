@@ -51,3 +51,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# Z
+which z && . `which z`
