@@ -211,5 +211,12 @@ endfunction
 "let g:multi_cursor_skip_key='<C-x>'
 "let g:multi_cursor_quit_key='<Esc>'
 
+" Ctrl-p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = '\.git/\|node_modules\|bower_components'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 'ra'
+
 """ Project specific
 au BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticEsLint()
