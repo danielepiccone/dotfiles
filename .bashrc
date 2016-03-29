@@ -17,6 +17,9 @@
 
 # System-wide bashrc file
 
+# Include default tab completion for standard commands
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+
 # Check that we haven't already been sourced.
 ([[ -z ${CYG_SYS_BASHRC} ]] && CYG_SYS_BASHRC="1") || return
 
@@ -53,4 +56,4 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Z
-which z && . `which z`
+which z > /dev/null && . `which z`
