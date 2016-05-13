@@ -200,7 +200,7 @@ endfunction
 
 function SetSyntasticEsLint()
     let g:syntastic_javascript_checkers = ['eslint']
-    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/professional-services/node_modules/.bin/eslint'
+    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/taskmate/node_modules/.bin/eslint'
 endfunction
 
 
@@ -219,4 +219,4 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra'
 
 """ Project specific
-au BufRead,BufNewFile /home/dpi/Documents/professional-services/* call SetSyntasticEsLint()
+au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetSyntasticEsLint()
