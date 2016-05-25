@@ -9,6 +9,7 @@
  '(custom-enabled-themes (quote (wombat)))
  '(inhibit-startup-screen t)
  '(show-paren-mode t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -18,13 +19,10 @@
 
 ;; Install melpa
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
-  (package-initialize))
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(package-initialize)
 
 ;; Enable autocomplete
 
@@ -46,3 +44,24 @@
 ;; Multiple cursors
 
 (global-set-key (kbd "C-c m c") 'mc/edit-lines)
+
+;; Remove trailing space on save
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Auto save and backups
+
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+
+;; Flycheck
+
+(package-install 'flycheck)
+
+(provide '.emacs)
+;;; .emacs ends here
