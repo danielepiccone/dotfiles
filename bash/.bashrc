@@ -32,7 +32,8 @@ parse_git_branch() {
 }
 
 # Set a default prompt of: user@host and current_directory
-PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]\n$ '
+# PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]\n$ '
+PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]$ '
 
 # Uncomment to use the terminal colours set in DIR_COLORS
 # eval "$(dircolors -b /etc/DIR_COLORS)"
