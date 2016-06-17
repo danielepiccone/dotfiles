@@ -120,7 +120,7 @@ fi
 ### --- end skel
 
 # Custom prompt
-export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]($(git rev-parse --abbrev-ref HEAD))\[\e[0m\]$ '
+export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(git rev-parse --abbrev-ref HEAD)\[\e[0m\]$ '
 
 
 # Definitions
