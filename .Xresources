@@ -12,40 +12,39 @@ xterm*selectToClipboard: true
 ! xterm*colorBDMode: true
 ! xterm*colorBD: rgb:fc/fc/fc
 
-!! Tango colors
-
-*.foreground:   #D3D7CF
-*.background:   #171717
+! special
+*.foreground:   #d0c8c6
+*.background:   #3b3228
+*.cursorColor:  #d0c8c6
 
 ! black
-*.color0:       #171717
-*.color8:       #555753
+*.color0:       #3b3228
+*.color8:       #7e705a
 
 ! red
-*.color1:       #CC0000
-*.color9:       #EF2929
+*.color1:       #cb6077
+*.color9:       #cb6077
 
 ! green
-*.color2:       #4E9A06
-*.color10:      #8AE234
+*.color2:       #beb55b
+*.color10:      #beb55b
 
 ! yellow
-*.color3:       #C4A000
-*.color11:      #FCE94F
+*.color3:       #f4bc87
+*.color11:      #f4bc87
 
 ! blue
-*.color4:       #3465A4
-*.color12:      #729FCF
+*.color4:       #8ab3b5
+*.color12:      #8ab3b5
 
 ! magenta
-*.color5:       #75507B
-*.color13:      #AD7FA8
+*.color5:       #a89bb9
+*.color13:      #a89bb9
 
 ! cyan
-*.color6:       #06989A
-*.color14:      #34E2E2
+*.color6:       #7bbda4
+*.color14:      #7bbda4
 
 ! white
-*.color7:       #D3D7CF
-*.color15:      #EEEEEC
-
+*.color7:       #d0c8c6
+*.color15:      #f5eeeb
