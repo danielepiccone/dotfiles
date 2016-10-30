@@ -203,6 +203,9 @@ function SetSyntasticEsLint()
     let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/taskmate/node_modules/.bin/eslint'
 endfunction
 
+" Enable Syntastic honor tsconfig.json
+" http://stackoverflow.com/questions/34102184/use-tsconfig-json-for-tsc-with-syntastic-in-vim
+let g:syntastic_typescript_tsc_fname = ''
 
 " Default mapping
 "let g:multi_cursor_use_default_mapping=0
