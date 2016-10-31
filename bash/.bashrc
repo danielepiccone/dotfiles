@@ -150,3 +150,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Z
 which z > /dev/null && . `which z`
+
+# Docker API version
+export DOCKER_API_VERSION=1.24
