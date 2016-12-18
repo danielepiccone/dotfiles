@@ -1,0 +1,27 @@
+5c5
+< 	"monospace:size=10"
+---
+> 	"terminus:size=12"
+7c7
+< static const char dmenufont[]       = "monospace:size=10";
+---
+> static const char dmenufont[]       = "terminus:size=12";
+29d28
+< 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+35c34
+< static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+---
+> static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+45a45
+> #define WINKEY Mod4Mask
+58c58,61
+< static const char *termcmd[]  = { "st", NULL };
+---
+> static const char *termcmd[]  = { "x-terminal-emulator", NULL };
+> static const char *volupcmd[]  = { "dwm-volume-up", NULL };
+> static const char *voldowncmd[]  = { "dwm-volume-down", NULL };
+> static const char *lockscreencmd[]  = { "slock", NULL };
+84a88,90
+> 	{ 0,                            0x1008ff13, spawn,         {.v = volupcmd } },
+>         { 0,                            0x1008ff11, spawn,         {.v = voldowncmd } },
+>         { WINKEY,                       XK_l,	    spawn,         {.v = lockscreencmd } },

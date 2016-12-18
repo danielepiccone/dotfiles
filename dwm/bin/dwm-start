@@ -1,0 +1,23 @@
+#! /bin/bash
+
+while true; do
+	dwm-update-status
+	sleep 1;
+done &
+
+# relaunch DWM if the binary changes, otherwise bail
+CSUM=$(sha1sum $(which dwm))
+NEW_CSUM=""
+
+while true
+do
+    if [ "$CSUM" != "$NEW_CSUM" ]
+    then
+        CSUM=$NEW_CSUM
+        dwm 2> ~/.dwm.log
+    else
+        exit 0
+    fi
+    NEW_CSUM=$(sha1sum $(which dwm))
+    sleep 0.5
+done

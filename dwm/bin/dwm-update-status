@@ -1,0 +1,7 @@
+#! /bin/bash
+
+VOLUME=`amixer -D pulse sget Master | tail -n1 | awk '{ print $5 }' | tr -d []`
+DATE=`date`
+STATUS="$DATE | $VOLUME"
+
+xsetroot -name "$STATUS"
