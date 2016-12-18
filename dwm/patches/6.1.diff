@@ -14,14 +14,24 @@
 > static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 45a45
 > #define WINKEY Mod4Mask
-58c58,61
+51a52,53
+> #include <X11/XF86keysym.h>
+> 
+58c60,66
 < static const char *termcmd[]  = { "st", NULL };
 ---
 > static const char *termcmd[]  = { "x-terminal-emulator", NULL };
 > static const char *volupcmd[]  = { "dwm-volume-up", NULL };
 > static const char *voldowncmd[]  = { "dwm-volume-down", NULL };
+> static const char *voltogglecmd[]  = { "dwm-volume-toggle", NULL };
+> static const char *brightnessupcmd[]  = { "dwm-brightness-up", NULL };
+> static const char *brightnessdowncmd[]  = { "dwm-brightness-down", NULL };
 > static const char *lockscreencmd[]  = { "slock", NULL };
-84a88,90
-> 	{ 0,                            0x1008ff13, spawn,         {.v = volupcmd } },
->         { 0,                            0x1008ff11, spawn,         {.v = voldowncmd } },
+84a93
 >         { WINKEY,                       XK_l,	    spawn,         {.v = lockscreencmd } },
+94a104,108
+> 	{ 0,                            XF86XK_AudioMute,	 spawn,         {.v = voltogglecmd } },
+> 	{ 0,                            XF86XK_AudioRaiseVolume, spawn,         {.v = volupcmd } },
+>         { 0,                            XF86XK_AudioLowerVolume, spawn,         {.v = voldowncmd } },
+> 	{ 0,                            XF86XK_MonBrightnessUp,  spawn,         {.v = brightnessupcmd } },
+> 	{ 0,                            XF86XK_MonBrightnessDown,spawn,         {.v = brightnessdowncmd } },
