@@ -7,7 +7,7 @@ SLOCK = slock-1.4
 
 default:
 	@echo "Use make clean install"
-	
+
 .PHONY: install
 install: deps dmenu slock dwm xsession bins
 
@@ -23,7 +23,7 @@ bins:
 	sudo stow --restow --target=/usr/local/bin bin/
 
 deps:
-	sudo apt-get install git build-essential libxft-dev libx11-dev libxrandr-dev
+	sudo apt-get install git build-essential libxft-dev libx11-dev libxrandr-dev libxinerama-dev
 	sudo apt-get install xfonts-terminus
 
 dwm:
