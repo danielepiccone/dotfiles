@@ -26,7 +26,7 @@
 > static const char *voltogglecmd[]  = { "dwm-volume-toggle", NULL };
 > static const char *brightnessupcmd[]  = { "dwm-brightness-up", NULL };
 > static const char *brightnessdowncmd[]  = { "dwm-brightness-down", NULL };
-> static const char *lockscreencmd[]  = { "slock", NULL };
+> static const char *lockscreencmd[]  = { "dwm-screensaver", NULL };
 84a93
 >         { WINKEY,                       XK_l,	    spawn,         {.v = lockscreencmd } },
 94a104,108
