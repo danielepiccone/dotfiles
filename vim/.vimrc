@@ -157,7 +157,7 @@ cd ~/Documents
 " TODO this cause a bug in the html syntax with netrw
 " http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
 " set autochdir
-autocmd BufEnter * silent! lcd %:p:h
+au BufEnter * silent! lcd %:p:h
 
 " Workaround for Karma runner
 " https://github.com/karma-runner/karma/issues/199
@@ -168,13 +168,16 @@ set backupcopy=yes
 execute pathogen#infect()
 
 " Less autocompiler
-autocmd BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
+au BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
 
 " Coffeescript autocompiler
-autocmd BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
+au BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
 
 " Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
+
+" Use cssnext syntax for .css file
+au BufNewFile,BufRead *.css set filetype=cssnext
 
 " Disable persistent undo
 set noundofile
@@ -190,7 +193,7 @@ set directory=$HOME/.vim/tmp/
 set pastetoggle=<F2>
 
 " Strip trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
+au BufWritePre * :%s/\s\+$//e
 
 " Enable extended JSX syntax in Javascript files
 let g:jsx_ext_required = 0

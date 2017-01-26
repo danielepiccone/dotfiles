@@ -3,9 +3,6 @@
 " Maintainer: Daniele Piccone
 " Latest Revision: 25 January 2017
 
-" Only for dev
-" set ft=none
-
 if exists("b:current_syntax")
     finish
 endif
@@ -29,4 +26,4 @@ hi def link cssVariable Constant
 hi def link cssConstant Constant
 hi def link cssComment Comment
 
-let b:current_syntax = "css"
+let b:current_syntax = "cssnext"
