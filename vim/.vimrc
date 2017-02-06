@@ -2,6 +2,8 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 
 " set diffexpr=MyDiff()
+
+" Custom diff function {{{1
 function MyDiff()
     let opt = '-a --binary '
     if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
@@ -25,65 +27,14 @@ function MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
-" cnoremap <C-F4> c
-" inoremap <C-F4> c
-" cnoremap <C-Tab> w
-" inoremap <C-Tab> w
-" cmap <S-Insert> +
-" imap <S-Insert> 
-" xnoremap  ggVG
-
-" snoremap  gggHG
-" onoremap  gggHG
-" nnoremap  gggHG
-" noremap  
-" vnoremap  :update
-
-" nnoremap  :update
-
-" onoremap  :update
-
-" vnoremap  "+x
-" noremap  
-" noremap  u
-" cnoremap  :simalt ~
-
-" inoremap  :simalt ~
-
-" map Q gq
-" nmap gx <Plug>NetrwBrowseX
-" nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-
-" onoremap <C-F4> c
-" nnoremap <C-F4> c
-" vnoremap <C-F4> c
-" onoremap <C-Tab> w
-" nnoremap <C-Tab> w
-" vnoremap <C-Tab> w
-" vmap <S-Insert> 
-" vnoremap <BS> d
-" vmap <C-Del> "*d
-" vnoremap <S-Del> "+x
-" vnoremap <C-Insert> "+y
-" nmap <S-Insert> "+gP
-" omap <S-Insert> "+gP
-" cnoremap  gggHG
-" inoremap  gggHG
-" inoremap  :update
-
-" inoremap  u
-" cmap  +
-" inoremap  
-" inoremap  u
-" noremap   :simalt ~
+" }}}1
 
 let s:cpo_save=&cpo
 set cpo&vim
 let &cpo=s:cpo_save
 unlet s:cpo_save
 
-" Support clipboard copy/paste
+" Support X / Windows clipboard copy/paste
 nmap  "+gP
 omap  "+gP
 vnoremap  "+y
@@ -91,20 +42,9 @@ vnoremap  "+y
 " Commands remapping, conflicting with Emmet
 cabbrev E Explore
 
-" Compiler
-map <F5> :silent SCCompileRun<CR>
-imap <F5> <Esc>:silent SCCompileRun<CR>
-map <F4> :<Up><CR>
-imap <F4> <Esc>:<Up><CR>
-map <F6> :SCCompileRun<CR>
-imap <F6> <Esc>:SCCompileRun<CR>
-
 " Processing
 " map <F7> :!c:\processing\processing-java.exe --sketch=%:p:h --output=c:\dump --run --force <CR><CR>
 " au BufRead,BufNewFile *.pde     setf java
-
-" Gui
-set guifont=Ubuntu\ Mono\ 13
 
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization across systems easier.
@@ -112,7 +52,6 @@ if has('win32') || has('win64')
     set guifont=DejaVu\ Sans\ Mono:h10:cANSI
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
-
 
 " Customization
 behave xterm
@@ -125,7 +64,8 @@ set hlsearch
 set incsearch
 
 if has('gui_running')
-    colors darkblue
+    colors desert
+    set ghr=0 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
 endif
 
 " Some terminal color personalization
@@ -136,10 +76,9 @@ hi Search ctermfg=black
 " set keymodel=startsel,stopsel
 
 set ruler
-" set selection=exclusive
 set selectmode=mouse,key
 set whichwrap=b,s,<,>,[,]
-set sel=inclusive
+set selection=inclusive
 
 " Coding style
 set expandtab
@@ -168,10 +107,10 @@ set backupcopy=yes
 execute pathogen#infect()
 
 " Less autocompiler
-au BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
+" au BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
 
 " Coffeescript autocompiler
-au BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
+" au BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
 
 " Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
@@ -214,7 +153,7 @@ endfunction
 " http://stackoverflow.com/questions/34102184/use-tsconfig-json-for-tsc-with-syntastic-in-vim
 let g:syntastic_typescript_tsc_fname = ''
 
-" Default mapping
+" Vim multiple cursors
 "let g:multi_cursor_use_default_mapping=0
 "let g:multi_cursor_next_key='<C-n>'
 "let g:multi_cursor_prev_key='<C-m>'
@@ -230,3 +169,5 @@ let g:ctrlp_working_path_mode = 'ra'
 
 """ Project specific
 au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetSyntasticEsLint()
+
+" vim: set sw=4 sts=4 et fdm=marker:
