@@ -64,7 +64,9 @@ set hlsearch
 set incsearch
 
 if has('gui_running')
-    colors desert
+    set toolbar=
+    colors github
+    set nu
     set ghr=0 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
 endif
 
@@ -167,5 +169,11 @@ let g:ctrlp_working_path_mode = 'ra'
 
 """ Project specific
 au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetSyntasticEsLint()
+
+" Custom shortcuts
+nnoremap <C-Down> :m .+1<CR>
+nnoremap <C-j> :m .+1<CR>
+nnoremap <C-Up> :m .-2<CR>
+nnoremap <C-k> :m .-2<CR>
 
 " vim: set sw=4 sts=4 et fdm=marker:
