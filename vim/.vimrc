@@ -64,10 +64,10 @@ set hlsearch
 set incsearch
 
 if has('gui_running')
-    set toolbar=
+    set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
+    set guioptions=aegimrLt
     colors github
     set nu
-    set ghr=0 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
 endif
 
 " Some terminal color personalization
@@ -170,7 +170,9 @@ let g:ctrlp_working_path_mode = 'ra'
 """ Project specific
 au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetSyntasticEsLint()
 
-" Custom shortcuts
+""" Custom shortcuts
+
+" Move lines up/down
 nnoremap <C-Down> :m .+1<CR>
 nnoremap <C-j> :m .+1<CR>
 nnoremap <C-Up> :m .-2<CR>
