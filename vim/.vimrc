@@ -85,11 +85,22 @@ set selection=inclusive
 
 " Coding style
 set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set autoindent
 filetype indent off
+
+" Enable custom standard linters in JS
+let g:syntastic_javascript_checkers = ['standard']
+
+function SetOneStyle()
+    let g:syntastic_javascript_checkers = ['eslint']
+    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/taskmate/node_modules/.bin/eslint'
+    set shiftwidth=4
+    set softtabstop=4
+    set tabstop=4
+endfunction
 
 " Startup
 cd ~/Documents
@@ -138,17 +149,6 @@ au BufWritePre * :%s/\s\+$//e
 " Enable extended JSX syntax in Javascript files
 let g:jsx_ext_required = 0
 
-" Enable custom standard linters in JS
-function SetSyntasticOneLint()
-    let g:syntastic_javascript_checkers = ['standard']
-    let g:syntastic_javascript_standard_exec = 'onelint'
-    let g:syntastic_javascript_standard_generic = 1
-endfunction
-
-function SetSyntasticEsLint()
-    let g:syntastic_javascript_checkers = ['eslint']
-    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/taskmate/node_modules/.bin/eslint'
-endfunction
 
 " Enable Syntastic honor tsconfig.json
 " http://stackoverflow.com/questions/34102184/use-tsconfig-json-for-tsc-with-syntastic-in-vim
@@ -169,7 +169,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra'
 
 """ Project specific
-au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetSyntasticEsLint()
+au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetOneStyle()
 
 """ Custom shortcuts
 
