@@ -63,6 +63,8 @@ set history=100
 set hlsearch
 set incsearch
 set t_Co=256
+set laststatus=2
+set statusline+=%F
 
 if has('gui_running')
     set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
