@@ -170,8 +170,8 @@ let g:ctrlp_custom_ignore = '\.git/\|node_modules\|bower_components'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra'
 
-""" Project specific
-au BufRead,BufNewFile /home/dpi/Documents/taskmate/* call SetOneStyle()
+""" One specific
+au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
 
 """ Custom shortcuts
 
