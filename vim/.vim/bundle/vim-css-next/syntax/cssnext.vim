@@ -1,6 +1,9 @@
 " Vim syntax file
+"
+" Allows simple syntax highlighting compatible with http://cssnext.io/
+"
 " Language: cssnext
-" Maintainer: Daniele Piccone
+" Maintainer: Daniele Piccone <mail@danielepiccone.com>
 " Latest Revision: 25 January 2017
 
 if exists("b:current_syntax")
