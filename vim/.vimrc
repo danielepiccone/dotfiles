@@ -103,6 +103,7 @@ function SetOneStyle()
     set softtabstop=4
     set tabstop=4
     set cc=80
+    highlight ColorColumn ctermbg=8
 endfunction
 
 " Startup
