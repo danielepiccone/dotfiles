@@ -98,7 +98,8 @@ let g:syntastic_javascript_checkers = ['standard']
 
 function SetOneStyle()
     let g:syntastic_javascript_checkers = ['eslint']
-    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/taskmate/node_modules/.bin/eslint'
+    " TODO install eslint-one-configuration globally
+    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
     set shiftwidth=4
     set softtabstop=4
     set tabstop=4
