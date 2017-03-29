@@ -1,32 +1,24 @@
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 
-" set diffexpr=MyDiff()
+" Custom linting configuration {{{1
+if !exists("*SetOneStyle")
 
-" Custom diff function {{{1
-function MyDiff()
-    let opt = '-a --binary '
-    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-    let arg1 = v:fname_in
-    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-    let arg2 = v:fname_new
-    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-    let arg3 = v:fname_out
-    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-    let eq = ''
-    if $VIMRUNTIME =~ ' '
-        if &sh =~ '\<cmd'
-            let cmd = '""' . $VIMRUNTIME . '\diff"'
-            let eq = '"'
-        else
-            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-        endif
-    else
-        let cmd = $VIMRUNTIME . '\diff'
-    endif
-    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
+    function SetOneStyle()
+        let g:syntastic_javascript_checkers = ['eslint']
+        " TODO install eslint-one-configuration globally
+        let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
+        " Requires https://github.com/gcorne/vim-sass-lint
+        let g:syntastic_sass_checkers=['sasslint']
+        let g:syntastic_scss_checkers=['sasslint']
+        set shiftwidth=4
+        set softtabstop=4
+        set tabstop=4
+        set cc=80
+        highlight ColorColumn ctermbg=8
+    endfunction
+
+endif
 " }}}1
 
 let s:cpo_save=&cpo
@@ -95,20 +87,6 @@ filetype indent off
 
 " Enable custom standard linters in JS
 let g:syntastic_javascript_checkers = ['standard']
-
-function SetOneStyle()
-    let g:syntastic_javascript_checkers = ['eslint']
-    " TODO install eslint-one-configuration globally
-    let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
-    " Requires https://github.com/gcorne/vim-sass-lint
-    let g:syntastic_sass_checkers=['sasslint']
-    let g:syntastic_scss_checkers=['sasslint']
-    set shiftwidth=4
-    set softtabstop=4
-    set tabstop=4
-    set cc=80
-    highlight ColorColumn ctermbg=8
-endfunction
 
 " Startup
 cd ~/Documents
