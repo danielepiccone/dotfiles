@@ -153,3 +153,6 @@ which z > /dev/null && . `which z`
 
 # Docker API version
 export DOCKER_API_VERSION=1.24
+
+# Fortune
+tput bold && fortune && tput sgr0
