@@ -8,6 +8,8 @@ if !exists("*SetOneStyle")
         let g:syntastic_javascript_checkers = ['eslint']
         " TODO install eslint-one-configuration globally
         let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
+        " Requires https://stylelint.io/
+        let g:syntastic_less_checkers=['stylelint']
         " Requires https://github.com/gcorne/vim-sass-lint
         let g:syntastic_sass_checkers=['sasslint']
         let g:syntastic_scss_checkers=['sasslint']
