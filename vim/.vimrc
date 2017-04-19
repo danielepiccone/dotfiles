@@ -17,6 +17,8 @@ if !exists("*SetOneStyle")
         set softtabstop=4
         set tabstop=4
         set cc=80
+        " Requires https://github.com/prettier/prettier
+        set formatprg=prettier
         highlight ColorColumn ctermbg=8
     endfunction
 
