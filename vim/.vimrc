@@ -18,7 +18,7 @@ if !exists("*SetOneStyle")
         set tabstop=4
         set cc=80
         " Requires https://github.com/prettier/prettier
-        set formatprg=prettier
+        set formatprg=prettier\ --stdin\ --single-quote\ --tab-width\ 4
         highlight ColorColumn ctermbg=8
     endfunction
 
