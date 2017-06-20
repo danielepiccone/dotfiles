@@ -5,14 +5,20 @@ source $VIMRUNTIME/vimrc_example.vim
 if !exists("*SetOneStyle")
 
     function SetOneStyle()
-        let g:syntastic_javascript_checkers = ['eslint']
+
+        " Syntastic configuration
+        "
+        " let g:syntastic_javascript_checkers = ['eslint']
         " TODO install eslint-one-configuration globally
-        let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
+        " let g:syntastic_javascript_eslint_exec = '/home/dpi/Documents/one/frontend/node_modules/.bin/eslint'
         " Requires https://stylelint.io/
-        let g:syntastic_less_checkers=['stylelint']
+        " let g:syntastic_less_checkers=['stylelint']
         " Requires https://github.com/gcorne/vim-sass-lint
-        let g:syntastic_sass_checkers=['sasslint']
-        let g:syntastic_scss_checkers=['sasslint']
+        " let g:syntastic_sass_checkers=['sasslint']
+        " let g:syntastic_scss_checkers=['sasslint']
+
+        let g:ale_linter_aliases = {'less': 'css'}
+
         set shiftwidth=4
         set softtabstop=4
         set tabstop=4
@@ -65,8 +71,8 @@ set statusline+=%F
 if has('gui_running')
     set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
     set guioptions=aegimrLt
-    colors github
-    set nu
+    set guifont=Consolas\ 12
+    colors desert
 endif
 
 " Some terminal color personalization
