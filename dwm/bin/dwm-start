@@ -1,11 +1,18 @@
-#! /bin/bash
+#!/bin/bash
 
+# Update status
 while true; do
 	dwm-update-status
 	sleep 1;
 done &
 
-# relaunch DWM if the binary changes, otherwise bail
+# Start gnome-keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+
+# Export keyring globals
+export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+
+# Relaunch DWM if the binary changes, otherwise bail
 CSUM=$(sha1sum $(which dwm))
 NEW_CSUM=""
 
