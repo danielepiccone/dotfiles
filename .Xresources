@@ -1,3 +1,10 @@
+! Debugging gtk2 issues
+! Xft.dpi:        96
+! Xft.antialias:  true
+! Xft.rgba:       rgb
+! Xft.hinting:    true
+! Xft.hintstyle:  slight
+
 xterm*faceName: Bitstream Vera Serif Mono
 xterm*faceSize: 10
 xterm*loginShell: true

@@ -16,6 +16,9 @@ export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 CSUM=$(sha1sum $(which dwm))
 NEW_CSUM=""
 
+# Add custom Xresources
+# xrdb -merge ~/.Xresources
+
 while true
 do
     if [ "$CSUM" != "$NEW_CSUM" ]
