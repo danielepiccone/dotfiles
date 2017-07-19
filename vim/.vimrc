@@ -18,6 +18,7 @@ if !exists("*SetOneStyle")
         " let g:syntastic_scss_checkers=['sasslint']
 
         let g:ale_linter_aliases = {'less': 'css'}
+        let g:ale_linters = { 'javascript': ['eslint'] }
 
         set shiftwidth=4
         set softtabstop=4
