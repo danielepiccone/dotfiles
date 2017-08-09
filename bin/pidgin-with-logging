@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TODAY=$(date +%y-%m-%d)
+LOG_FOLDER=~/.purple/debug/
+LOG_FILE=~/.purple/debug/$TODAY.log
+
+mkdir -p $LOG_FOLDER
+
+PURPLE_UNSAFE_DEBUG=1 PURPLE_VERBOSE_DEBUG=1 pidgin --debug &> $LOG_FILE &
