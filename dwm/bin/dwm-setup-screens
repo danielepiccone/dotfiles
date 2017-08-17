@@ -1,2 +1,7 @@
+xrandr --output eDP1 --primary
 xrandr --output DP2-1 --left-of eDP1
 xrandr --output DP2-2 --left-of DP2-1
+
+# xrandr --output DP2-2 --primary
+# xrandr --output DP2-1 --right-of DP2-2
+# xrandr --output eDP1 --right-of DP2-1
