@@ -27,10 +27,14 @@
 > static const char *brightnessupcmd[]  = { "dwm-brightness-up", NULL };
 > static const char *brightnessdowncmd[]  = { "dwm-brightness-down", NULL };
 > static const char *lockscreencmd[]  = { "dwm-screensaver", NULL };
-83,84c91,93
+81,84c89,93
+< 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+< 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 < 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 < 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 ---
+> 	{ MODKEY,                       XK_comma,  focusmon,       {.i = +1 } },
+> 	{ MODKEY,                       XK_period, focusmon,       {.i = -1 } },
 > 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = +1 } },
 > 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = -1 } },
 >         { WINKEY,                       XK_l,	    spawn,         {.v = lockscreencmd } },
