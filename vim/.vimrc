@@ -24,9 +24,13 @@ if !exists("*SetOneStyle")
         set softtabstop=4
         set tabstop=4
         set cc=80
+
         " Requires https://github.com/prettier/prettier
         set formatprg=prettier\ --stdin\ --single-quote\ --tab-width\ 4
         highlight ColorColumn ctermbg=8
+
+        " Run prettier on pre-save
+        " au BufWritePre * :%!prettier --write
     endfunction
 
 endif
