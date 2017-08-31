@@ -60,6 +60,10 @@ if has('win32') || has('win64')
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
+" Pathogen
+" all bundles in ~/.vim/bundles
+execute pathogen#infect()
+
 " Customization
 behave xterm
 colors default
@@ -77,7 +81,7 @@ if has('gui_running')
     set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
     set guioptions=aegimrLt
     set guifont=Consolas\ 12
-    colors desert
+    colors onedark
 endif
 
 " Some terminal color personalization
@@ -117,10 +121,6 @@ au BufEnter * silent! lcd %:p:h
 " Workaround for Karma runner
 " https://github.com/karma-runner/karma/issues/199
 set backupcopy=yes
-
-" Pathogen
-" all bundles in ~/.vim/bundles
-execute pathogen#infect()
 
 " Less autocompiler
 " au BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
