@@ -67,7 +67,7 @@ execute pathogen#infect()
 " Customization
 behave xterm
 colors default
-set nonu
+set nu
 set backspace=indent,eol,start
 set helplang=En
 set history=100
