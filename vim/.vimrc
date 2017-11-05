@@ -56,7 +56,6 @@ cabbrev E Explore
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes
 " synchronization across systems easier.
 if has('win32') || has('win64')
-    set guifont=DejaVu\ Sans\ Mono:h10:cANSI
     set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
@@ -80,8 +79,8 @@ set statusline+=%F
 if has('gui_running')
     set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
     set guioptions=aegimrLt
-    set guifont=Consolas\ 12
-    colors onedark
+    set guifont=Ubuntu\ Mono\ 12
+    colors base16-tomorrow-night
 endif
 
 " Some terminal color personalization
