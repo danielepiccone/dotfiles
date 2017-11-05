@@ -35,6 +35,9 @@ dwm:
 	cd ${DWM} && patch config.h < ${DWM_PATCH}
 	cd ${DWM} && sudo make install
 
+dwm-save-patch:
+	 cd ${DWM} && diff config.def.h config.h > ${DWM_PATCH} || true
+
 dmenu:
 	wget http://dl.suckless.org/tools/${DMENU}.tar.gz
 	tar xvf ${DMENU}.tar.gz
