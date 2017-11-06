@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Base 16
+BASE16_SHELL=$HOME/dotfiles/bash/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -156,3 +161,4 @@ export DOCKER_API_VERSION=1.24
 
 # Fortune
 tput bold && fortune && tput sgr0
+
