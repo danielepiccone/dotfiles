@@ -194,27 +194,10 @@ nnoremap <C-k> :m .-2<CR>
 
 """ Custom functions
 
-" Reload .vimrc after saving
-au BufWritePost .vimrc source $MYVIMRC
+" Reload vim runnable files after saving
+au BufWritePost *.vim source %
 
-fun! ToggleLineComment(line_number)
-  let line = getline(a:line_number)
-
-  if (line =~ "^\s*\/\/")
-    let changes = substitute(line, "\/\/", "", "")
-    call setline(a:line_number, changes)
-  else
-    let changes = substitute(line, "^", "\/\/", "")
-    call setline(a:line_number, changes)
-  endif
-endfun
-
-fun! ToggleComments()
-  let curpos = getcurpos()
-  let line_number = curpos[1]
-
-  call ToggleLineComment(line_number)
-endfun
+source $HOME/.vim/functions/toggle_comments.vim
 
 " this maps to C-/ in ubuntu
 vmap <C-_> :call ToggleComments()<CR>
