@@ -1,18 +1,6 @@
 " if exists() ...
 
-fun! s:toggleLineComment(line_number, lcomment_token)
-  let line = getline(a:line_number)
-
-  if (line =~ "^\s*" . a:lcomment_token)
-    let changes = substitute(line, a:lcomment_token . " ", "", "")
-    call setline(a:line_number, changes)
-  else
-    let changes = substitute(line, "^", a:lcomment_token . " ", "")
-    call setline(a:line_number, changes)
-  endif
-endfun
-
-fun! ToggleComments() range
+fun! s:getLcommentToken()
   let file_type = &ft
   let lcomment_token = ""
 
@@ -24,16 +12,35 @@ fun! ToggleComments() range
     let lcomment_token = "\""
   endif
 
-  let line_number = a:firstline
+  return lcomment_token
+endfun
 
+fun! s:toggleLineComment(line_number)
+  let lcomment_token = s:getLcommentToken()
+  let line = getline(a:line_number)
+
+  if (line =~ "^\s*" . lcomment_token)
+    let changes = substitute(line, lcomment_token . " ", "", "")
+    call setline(a:line_number, changes)
+  else
+    let changes = substitute(line, "^", lcomment_token . " ", "")
+    call setline(a:line_number, changes)
+  endif
+endfun
+
+
+fun! ToggleComments() range
+  echo a:firstline a:lastline
+
+  let line_number = a:firstline
   while line_number <= a:lastline
-    call s:toggleLineComment(line_number, lcomment_token)
+    call s:toggleLineComment(line_number)
     let line_number += 1
   endwhile
 
   if a:firstline == a:lastline
      " single line
   else
-    execute "normal! gv"
+     execute "normal! gv"
   endif
 endfun
