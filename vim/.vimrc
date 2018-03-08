@@ -75,6 +75,7 @@ set incsearch
 set t_Co=256
 set laststatus=2
 set statusline+=%F
+set mouse=a
 
 " Default to 25 lines when Lexplore
 let g:netrw_winsize=25
