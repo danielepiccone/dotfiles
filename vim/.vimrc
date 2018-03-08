@@ -191,3 +191,33 @@ nnoremap <C-Up> :m .-2<CR>
 nnoremap <C-k> :m .-2<CR>
 
 " vim: set sw=4 sts=4 et fdm=marker:
+
+""" Custom functions
+
+" Reload .vimrc after saving
+au BufWritePost .vimrc source $MYVIMRC
+
+" Only for dev
+if exists("*ToggleComments")
+    delfunction ToggleComments
+endif
+
+function ToggleComments()
+  let curpos = getcurpos()
+  let lno = curpos[1]
+
+  let line = getline(lno)
+
+  if (line =~ "^\s*\/\/")
+    let changes = substitute(line, "\/\/", "", "")
+    call setline(lno, changes)
+  else
+    let changes = substitute(line, "^", "\/\/", "")
+    call setline(lno, changes)
+  endif
+endfunction
+
+" this maps to C-/ in ubuntu
+vmap <C-_> :call ToggleComments()<CR>
+nmap <C-_> :call ToggleComments()<CR>
+
