@@ -197,25 +197,24 @@ nnoremap <C-k> :m .-2<CR>
 " Reload .vimrc after saving
 au BufWritePost .vimrc source $MYVIMRC
 
-" Only for dev
-if exists("*ToggleComments")
-    delfunction ToggleComments
-endif
-
-function ToggleComments()
-  let curpos = getcurpos()
-  let lno = curpos[1]
-
-  let line = getline(lno)
+fun! ToggleLineComment(line_number)
+  let line = getline(a:line_number)
 
   if (line =~ "^\s*\/\/")
     let changes = substitute(line, "\/\/", "", "")
-    call setline(lno, changes)
+    call setline(a:line_number, changes)
   else
     let changes = substitute(line, "^", "\/\/", "")
-    call setline(lno, changes)
+    call setline(a:line_number, changes)
   endif
-endfunction
+endfun
+
+fun! ToggleComments()
+  let curpos = getcurpos()
+  let line_number = curpos[1]
+
+  call ToggleLineComment(line_number)
+endfun
 
 " this maps to C-/ in ubuntu
 vmap <C-_> :call ToggleComments()<CR>
