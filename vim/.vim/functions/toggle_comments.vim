@@ -15,26 +15,31 @@ fun! s:getLcommentToken()
   return lcomment_token
 endfun
 
-fun! s:toggleLineComment(line_number)
+fun! s:toggleLineComment(line_number, should_comment)
   let lcomment_token = s:getLcommentToken()
   let line = getline(a:line_number)
 
-  if (line =~ "^\s*" . lcomment_token)
-    let changes = substitute(line, lcomment_token . " ", "", "")
+  if a:should_comment
+    let changes = substitute(line, "^", lcomment_token . " ", "")
     call setline(a:line_number, changes)
   else
-    let changes = substitute(line, "^", lcomment_token . " ", "")
+    let changes = substitute(line, lcomment_token . " ", "", "")
     call setline(a:line_number, changes)
   endif
 endfun
 
+fun! s:shouldComment()
+  let line = getline(getcurpos()[1])
+  let lcomment_token = s:getLcommentToken()
+  return !(line =~ "^\s*". lcomment_token)
+endfun
 
 fun! ToggleComments() range
-  echo a:firstline a:lastline
-
   let line_number = a:firstline
+  let should_comment = s:shouldComment()
+
   while line_number <= a:lastline
-    call s:toggleLineComment(line_number)
+    call s:toggleLineComment(line_number, should_comment)
     let line_number += 1
   endwhile
 
