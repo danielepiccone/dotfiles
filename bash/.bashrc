@@ -134,9 +134,11 @@ parse_git_branch() {
 
 }
 
+# Disable caps lock
+setxkbmap -option ctrl:nocaps
+
 # Custom prompt
 export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]$ '
-
 
 # Definitions
 nodetool() { docker exec $1 nodetool ${*:2}; }
