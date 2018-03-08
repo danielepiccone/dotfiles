@@ -30,4 +30,6 @@ fun! ToggleComments() range
     call ToggleLineComment(line_number, lcomment_token)
     let line_number += 1
   endwhile
+
+  execute "normal! gv"
 endfun
