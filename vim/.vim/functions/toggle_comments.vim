@@ -31,5 +31,9 @@ fun! ToggleComments() range
     let line_number += 1
   endwhile
 
-  execute "normal! gv"
+  if a:firstline == a:lastline
+     " single line
+  else
+    execute "normal! gv"
+  endif
 endfun
