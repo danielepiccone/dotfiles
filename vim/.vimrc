@@ -182,6 +182,11 @@ let g:ctrlp_working_path_mode = 'ra'
 """ One specific
 au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
 
+""" OSX specific
+if has('macunix')
+  colors default
+endif
+
 """ Custom shortcuts
 
 " Move lines up/down
