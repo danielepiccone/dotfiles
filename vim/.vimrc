@@ -208,3 +208,7 @@ source $HOME/.vim/functions/toggle_comments.vim
 vmap <C-_> :call ToggleComments()<CR>
 nmap <C-_> :call ToggleComments()<CR>
 
+if has('macunix')
+  vmap <C-\> :call ToggleComments()<CR>
+  nmap <C-\> :call ToggleComments()<CR>
+endif
