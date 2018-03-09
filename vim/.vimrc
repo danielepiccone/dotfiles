@@ -201,14 +201,3 @@ nnoremap <C-k> :m .-2<CR>
 
 " Reload vim runnable files after saving
 au BufWritePost *.vim source %
-
-source $HOME/.vim/functions/toggle_comments.vim
-
-" this maps to C-/ in ubuntu
-vmap <C-_> :call ToggleComments()<CR>
-nmap <C-_> :call ToggleComments()<CR>
-
-if has('macunix')
-  vmap <C-\> :call ToggleComments()<CR>
-  nmap <C-\> :call ToggleComments()<CR>
-endif
