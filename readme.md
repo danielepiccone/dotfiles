@@ -3,17 +3,22 @@
 deploy in ~/dotfiles
 
 ```
+git submodule update
+
+stow fonts
+stow bash
 stow vim
+stow tmux
 ```
 
+Install dwm, slock and suckless tools
+
 ```
-./link.sh
+cd dwm
+make install
 ```
 
-# Xubuntu specific
-
-### Install Adobe reader
-manually
+# Old docs
 
 ### Install Adobe flash
 
