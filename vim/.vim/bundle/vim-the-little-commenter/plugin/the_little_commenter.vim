@@ -59,7 +59,7 @@ endfunction
 function! s:shouldComment()
   let line = getline(getcurpos()[1])
   let comment_leader = s:getCommentLeader()
-  return !(line =~ "^\s*". comment_leader)
+  return !(line =~ "^[ \t]*". comment_leader)
 endfunction
 
 function! ToggleComments() range
