@@ -1,3 +1,5 @@
+" vim: set sw=4 sts=4 et fdm=marker:
+
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 
@@ -160,10 +162,12 @@ au BufWritePre * :%s/\s\+$//e
 " Enable extended JSX syntax in Javascript files
 let g:jsx_ext_required = 0
 
-
 " Enable Syntastic honor tsconfig.json
 " http://stackoverflow.com/questions/34102184/use-tsconfig-json-for-tsc-with-syntastic-in-vim
 let g:syntastic_typescript_tsc_fname = ''
+
+" Reload vim runnable files after saving
+au BufWritePost *.vim source %
 
 " Vim multiple cursors
 "let g:multi_cursor_use_default_mapping=0
@@ -195,9 +199,5 @@ nnoremap <C-j> :m .+1<CR>
 nnoremap <C-Up> :m .-2<CR>
 nnoremap <C-k> :m .-2<CR>
 
-" vim: set sw=4 sts=4 et fdm=marker:
-
 """ Custom functions
-
-" Reload vim runnable files after saving
-au BufWritePost *.vim source %
+command! GetPackageJson execute "edit " . findfile("package.json", ".;")
