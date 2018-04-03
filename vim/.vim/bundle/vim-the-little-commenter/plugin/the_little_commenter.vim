@@ -1,65 +1,37 @@
 " The little commenter
+" A small plugin to comment/uncomment lines in vim
+" Author: Daniele Piccone <mail@danielepiccone.com>
 
-let s:comment_leaders_map = {
-  \ "c": '\/\/',
-  \ "cpp": '\/\/',
-  \ "go": '\/\/',
-  \ "java": '\/\/',
-  \ "javascript": '\/\/',
-  \ "javascript.jsx": '\/\/',
-  \ "lua": '--',
-  \ "scala": '\/\/',
-  \ "php": '\/\/',
-  \ "python": '#',
-  \ "ruby": '#',
-  \ "rust": '\/\/',
-  \ "sh": '#',
-  \ "desktop": '#',
-  \ "fstab": '#',
-  \ "conf": '#',
-  \ "profile": '#',
-  \ "bashrc": '#',
-  \ "bash_profile": '#',
-  \ "mail": '>',
-  \ "eml": '>',
-  \ "bat": 'REM',
-  \ "ahk": ';',
-  \ "vim": '"',
-  \ "tex": '%'
-  \ }
+function! s:getCommentBoundaries()
+  return map(split(&commentstring, "%s", 1), { key, val -> escape(val, "*") })
+endfunction
 
 function! s:ensureLanguageSupport()
-  if has_key(s:comment_leaders_map, &ft)
+  if len(split(&commentstring, "%s")) > 0
     return 1
   endif
 endfunction
 
-function! s:getCommentLeader()
-  if has_key(s:comment_leaders_map, &ft)
-    let comment_leader = s:comment_leaders_map[&ft]
-  else
-    let comment_leader = '#'
-  endif
-  return comment_leader
-endfunction
-
 function! s:toggleLineComment(line_number, should_comment)
-  let comment_leader = s:getCommentLeader()
+  let [lboundary, rboundary] = s:getCommentBoundaries()
   let line = getline(a:line_number)
 
   if a:should_comment
-    let changes = substitute(line, "^", comment_leader . " ", "")
+    let changes = substitute(line, "^", lboundary . " ", "")
+    let changes = substitute(changes, "$", " " . rboundary, "")
     call setline(a:line_number, changes)
   else
-    let changes = substitute(line, comment_leader . " ", "", "")
+    let changes = substitute(line, lboundary . " ", "", "")
+    let changes = substitute(changes, " " . rboundary . "$", "", "")
     call setline(a:line_number, changes)
   endif
 endfunction
 
 function! s:shouldComment()
   let line = getline(getcurpos()[1])
-  let comment_leader = s:getCommentLeader()
-  return !(line =~ "^[ \t]*". comment_leader)
+  let [lboundary, rboundary] = s:getCommentBoundaries()
+  return !(line =~ "^\s*". lboundary)
+  return !(line =~ "^[ \t]*". lboundary)
 endfunction
 
 function! ToggleComments() range
@@ -67,7 +39,7 @@ function! ToggleComments() range
     return
   endif
 
-let line_number = a:firstline
+  let line_number = a:firstline
   let should_comment = s:shouldComment()
 
   while line_number <= a:lastline
