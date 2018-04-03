@@ -141,7 +141,7 @@ set backupcopy=yes
 au BufNewFile,BufRead *.ko set filetype=html
 
 " Use cssnext syntax for .css file
-au BufNewFile,BufRead *.css set filetype=cssnext
+" au BufNewFile,BufRead *.css set filetype=cssnext
 
 " Disable persistent undo
 set noundofile
