@@ -140,10 +140,6 @@ setxkbmap -option ctrl:nocaps
 # Custom prompt
 export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]$ '
 
-# Definitions
-nodetool() { docker exec $1 nodetool ${*:2}; }
-cqlsh() { docker exec -it $1 cqlsh `docker inspect --format "{{ .NetworkSettings.IPAddress }}" $1` ${*:2}; }
-
 # Export
 export TERM=xterm-256color
 export NODE_ENV=development
