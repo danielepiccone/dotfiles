@@ -33,6 +33,9 @@ if !exists("*SetOneStyle")
 
         " Run prettier on pre-save
         " au BufWritePre * :%!prettier --write
+
+        " Load syntax on .make files
+        au BufRead,BufNewFile *.make set ft=make
     endfunction
 
 endif
