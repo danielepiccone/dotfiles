@@ -12,26 +12,47 @@ function! s:ensureLanguageSupport()
   endif
 endfunction
 
-function! s:toggleLineComment(line_number, should_comment)
-  let [lboundary, rboundary] = s:getCommentBoundaries()
-  let line = getline(a:line_number)
-
-  if a:should_comment
-    let changes = substitute(line, "^", lboundary . " ", "")
-    let changes = substitute(changes, "$", " " . rboundary, "")
-    call setline(a:line_number, changes)
-  else
-    let changes = substitute(line, lboundary . " ", "", "")
-    let changes = substitute(changes, " " . rboundary . "$", "", "")
-    call setline(a:line_number, changes)
-  endif
+function! s:isEmptyString(string)
+  return a:string =~ '^\s*$'
 endfunction
 
-function! s:shouldComment()
-  let line = getline(getcurpos()[1])
+function! s:toggleComment(line, shouldComment, boundaries, padding)
+  let [lboundary, rboundary] = a:boundaries
+  if a:shouldComment
+    let updatedLine = repeat(' ', a:padding) . lboundary . ' ' . strpart(a:line, a:padding)
+    if rboundary != ''
+      let updatedLine = substitute(updatedLine, '$', ' ' . rboundary, '')
+    endif
+  else
+    let updatedLine = substitute(a:line, '^\(\s*\)' . lboundary . ' ', '\1', 'g')
+    if rboundary != ''
+      let updatedLine = substitute(updatedLine, " " . rboundary . "$", "", "")
+    endif
+  endif
+  return updatedLine
+endfunction
+
+function! s:shouldComment(line)
   let [lboundary, rboundary] = s:getCommentBoundaries()
-  return !(line =~ "^\s*". lboundary)
-  return !(line =~ "^[ \t]*". lboundary)
+  return !(a:line =~ '^\s*'. lboundary)
+endfunction
+
+function! s:getLinePadding(line)
+    return strlen(matchstr(a:line, '^\s*'))
+endfunction
+
+function! s:getMinLinePadding(lines)
+  let minPadding = 999
+  for line in a:lines
+    if s:isEmptyString(line)
+      continue
+    endif
+    let padding = s:getLinePadding(line)
+    if padding < minPadding
+      let minPadding = padding
+    endif
+  endfor
+  return minPadding
 endfunction
 
 function! ToggleComments() range
@@ -39,12 +60,16 @@ function! ToggleComments() range
     return
   endif
 
-  let line_number = a:firstline
-  let should_comment = s:shouldComment()
+  let lineNumber = a:firstline
+  let shouldComment = s:shouldComment(getline(getcurpos()[1]))
+  let minLinePadding = s:getMinLinePadding(getline(a:firstline, a:lastline))
+  let commentBoundaries = s:getCommentBoundaries()
 
-  while line_number <= a:lastline
-    call s:toggleLineComment(line_number, should_comment)
-    let line_number += 1
+  while lineNumber <= a:lastline
+    let line = getline(lineNumber)
+    let updatedLine = s:toggleComment(line, shouldComment, commentBoundaries, minLinePadding)
+    call setline(lineNumber, updatedLine)
+    let lineNumber += 1
   endwhile
 
   if a:firstline == a:lastline
@@ -53,6 +78,46 @@ function! ToggleComments() range
      execute "normal! gv"
   endif
 endfunction
+
+" ==============================================================================
+" Test
+" ==============================================================================
+let v:errors = []
+
+let s:test = {}
+if &ft == 'vim'
+  let s:test.boundaries = ['"', '']
+  call assert_equal(s:toggleComment('foobar', v:true, s:test.boundaries, 0), '" foobar')
+  call assert_equal(s:toggleComment('  foobar', v:true, s:test.boundaries, 2), '  " foobar')
+  call assert_equal(s:toggleComment('" foobar', v:false, s:test.boundaries, 0), 'foobar')
+  call assert_equal(s:toggleComment('  " foobar', v:false, s:test.boundaries, 0), '  foobar')
+  let s:test.boundaries = ['<', '>']
+  call assert_equal(s:toggleComment('foobar', v:true, s:test.boundaries, 0), '< foobar >')
+  call assert_equal(s:toggleComment('  foobar', v:true, s:test.boundaries, 2), '  < foobar >')
+  call assert_equal(s:toggleComment('< foobar >', v:false, s:test.boundaries, 0), 'foobar')
+  call assert_equal(s:toggleComment('  < foobar >', v:false, s:test.boundaries, 0), '  foobar')
+
+  call assert_equal(s:shouldComment('foobar'), 1)
+  call assert_equal(s:shouldComment('" foobar'), 0)
+  call assert_equal(s:shouldComment('  foobar'), 1)
+  call assert_equal(s:shouldComment('  " foobar'), 0)
+
+
+  let s:test.lines = []
+  call add(s:test.lines, '   foobar')
+  call add(s:test.lines, '')
+  call add(s:test.lines, '  foobar')
+  call assert_equal(s:getMinLinePadding(s:test.lines), 2)
+  call add(s:test.lines, ' foobar')
+  call assert_equal(s:getMinLinePadding(s:test.lines), 1)
+  call add(s:test.lines, 'foobar')
+  call assert_equal(s:getMinLinePadding(s:test.lines), 0)
+endif
+unlet s:test
+
+if (len(v:errors) > 0)
+  echo v:errors
+endif
 
 " ==============================================================================
 " Initialize
@@ -73,3 +138,4 @@ if has('macunix')
   vmap <C-\> :call ToggleComments()<CR>
   nmap <C-\> :call ToggleComments()<CR>
 endif
+
