@@ -124,6 +124,11 @@ fi
 
 ### --- end skel
 
+# Custom aliases
+vigit() {
+  vi $(git status --porcelain | awk '{ print $2 }')
+}
+
 # Append current git branch in prompt
 parse_git_branch() {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
