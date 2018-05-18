@@ -1,5 +1,5 @@
 " The little commenter
-" A small plugin to comment/uncomment lines in vim
+" Description: A small plugin to comment/uncomment lines in vim
 " Author: Daniele Piccone <mail@danielepiccone.com>
 
 function! s:getCommentBoundaries()
