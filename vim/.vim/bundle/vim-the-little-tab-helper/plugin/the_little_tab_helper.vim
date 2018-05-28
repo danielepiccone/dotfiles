@@ -32,8 +32,13 @@ endfunction
 function! LittleTabHelperGetTabLabel(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  let fileName = fnamemodify(bufname(buflist[winnr - 1]), ':p')
-  return s:formatFileName(fileName)
+  let bufferName = bufname(buflist[winnr - 1])
+  if bufferName == ''
+    return s:formatFileName('')
+  else
+    let fileName = fnamemodify(bufferName, ':p')
+    return s:formatFileName(fileName)
+  endif
 endfunction
 
 function! LittleTabHelper()
