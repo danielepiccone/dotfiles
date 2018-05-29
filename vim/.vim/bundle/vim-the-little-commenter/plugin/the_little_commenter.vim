@@ -42,6 +42,9 @@ function! s:getLinePadding(line)
 endfunction
 
 function! s:getMinLinePadding(lines)
+  if (len(a:lines) == 1) && (s:isEmptyString(a:lines[0]))
+    return 0
+  endif
   let minPadding = 999
   for line in a:lines
     if s:isEmptyString(line)
@@ -91,6 +94,7 @@ if &ft == 'vim'
   call assert_equal(s:toggleComment('  foobar', v:true, s:test.boundaries, 2), '  " foobar')
   call assert_equal(s:toggleComment('" foobar', v:false, s:test.boundaries, 0), 'foobar')
   call assert_equal(s:toggleComment('  " foobar', v:false, s:test.boundaries, 0), '  foobar')
+
   let s:test.boundaries = ['<', '>']
   call assert_equal(s:toggleComment('foobar', v:true, s:test.boundaries, 0), '< foobar >')
   call assert_equal(s:toggleComment('  foobar', v:true, s:test.boundaries, 2), '  < foobar >')
@@ -102,7 +106,6 @@ if &ft == 'vim'
   call assert_equal(s:shouldComment('  foobar'), 1)
   call assert_equal(s:shouldComment('  " foobar'), 0)
 
-
   let s:test.lines = []
   call add(s:test.lines, '   foobar')
   call add(s:test.lines, '')
@@ -112,6 +115,11 @@ if &ft == 'vim'
   call assert_equal(s:getMinLinePadding(s:test.lines), 1)
   call add(s:test.lines, 'foobar')
   call assert_equal(s:getMinLinePadding(s:test.lines), 0)
+
+  let s:test.lines = []
+  call add(s:test.lines, '')
+  call assert_equal(s:getMinLinePadding(s:test.lines), 0)
+
 endif
 unlet s:test
 
