@@ -94,6 +94,7 @@ if &ft == 'vim'
   call assert_equal(s:toggleComment('  foobar', v:true, s:test.boundaries, 2), '  " foobar')
   call assert_equal(s:toggleComment('" foobar', v:false, s:test.boundaries, 0), 'foobar')
   call assert_equal(s:toggleComment('  " foobar', v:false, s:test.boundaries, 0), '  foobar')
+  call assert_equal(s:toggleComment('"', v:false, s:test.boundaries, 0), '')
 
   let s:test.boundaries = ['<', '>']
   call assert_equal(s:toggleComment('foobar', v:true, s:test.boundaries, 0), '< foobar >')
