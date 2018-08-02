@@ -22,6 +22,8 @@ if !exists("*SetOneStyle")
         let g:ale_linter_aliases = {'less': 'css'}
         let g:ale_linters = { 'javascript': ['eslint'], 'typescript': ['tslint'] }
 
+        let g:javascript_plugin_jsdoc = 1
+
         set shiftwidth=4
         set softtabstop=4
         set tabstop=4
