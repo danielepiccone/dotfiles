@@ -36,23 +36,39 @@ if !exists("*SetOneStyle")
 
         " Configure prettier
         if !exists('g:loaded_prettier')
-            " TODO project-specific
-            let g:prettier_prg = 'prettier'
-
-            if !executable(g:prettier_prg)
-                return
-            endif
-
             let g:loaded_prettier = v:true
 
-            function s:configurePrettierOnEnter()
-                let &formatprg=g:prettier_prg . ' --stdin --stdin-filepath %'
+            function s:configurePrettier()
+                let l:packagejson = findfile('package.json', '.;')
+                let l:project_root_path = fnamemodify(l:packagejson, ':p:h')
+
+                if executable(l:project_root_path . '/node_modules/.bin/prettier')
+                    let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
+                else
+                    " fallback to the default one
+                    let g:prettier_prg = 'prettier'
+                endif
+
+                if executable(g:prettier_prg)
+                    let &formatprg=g:prettier_prg . ' --stdin --stdin-filepath %'
+                endif
             endfunction
 
-            au BufNewFile,BufWinEnter *.js call s:configurePrettierOnEnter()
+            au BufNewFile,BufWinEnter *.js call s:configurePrettier()
 
-            " Run prettier on pre-save
-            " au BufWritePre *.js execute "%!".g:prettier_prg." --stdin-filepath %"
+            function s:onSave()
+                if !executable(g:prettier_prg)
+                    return
+                endif
+
+                let l:cursor = getcurpos()
+
+                execute "%!".g:prettier_prg." --stdin-filepath %"
+
+                call setpos('.', l:cursor)
+            endfunction
+
+            " au BufWritePre *.js call s:onSave()
         endif
 
     endfunction
