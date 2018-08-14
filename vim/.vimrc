@@ -29,15 +29,32 @@ if !exists("*SetOneStyle")
         set tabstop=4
         set cc=80
 
-        " Requires https://github.com/prettier/prettier
-        set formatprg=prettier\ --stdin\ --single-quote\ --tab-width\ 4
         highlight ColorColumn ctermbg=8
-
-        " Run prettier on pre-save
-        " au BufWritePre * :%!prettier --write
 
         " Load syntax on .make files
         au BufRead,BufNewFile *.make set ft=make
+
+        " Configure prettier
+        if !exists('g:loaded_prettier')
+            " TODO project-specific
+            let g:prettier_prg = 'prettier'
+
+            if !executable(g:prettier_prg)
+                return
+            endif
+
+            let g:loaded_prettier = v:true
+
+            function s:configurePrettierOnEnter()
+                let &formatprg=g:prettier_prg . ' --stdin --stdin-filepath %'
+            endfunction
+
+            au BufNewFile,BufWinEnter *.js call s:configurePrettierOnEnter()
+
+            " Run prettier on pre-save
+            " au BufWritePre *.js execute "%!".g:prettier_prg." --stdin-filepath %"
+        endif
+
     endfunction
 
 endif
