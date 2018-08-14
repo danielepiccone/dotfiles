@@ -3,6 +3,51 @@
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 
+" Prettier integration for .js files {{{1
+function! s:loadPrettier()
+    if exists('g:loaded_prettier')
+        return
+    endif
+
+    let g:loaded_prettier = v:true
+    let g:prettier_prg = ''
+
+    function s:configurePrettier()
+        let l:packagejson = findfile('package.json', '.;')
+        let l:project_root_path = fnamemodify(l:packagejson, ':p:h')
+
+        if executable(l:project_root_path . '/node_modules/.bin/prettier')
+            let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
+        else
+            " fallback to the default one
+            let g:prettier_prg = 'prettier'
+        endif
+
+        if executable(g:prettier_prg)
+            let &formatprg=g:prettier_prg . ' --stdin --stdin-filepath %'
+        endif
+    endfunction
+
+    au BufNewFile,BufWinEnter *.js call s:configurePrettier()
+
+    function s:onSave()
+        if !executable(g:prettier_prg)
+            return
+        endif
+
+        let l:cursor = getcurpos()
+
+        execute "%!".g:prettier_prg." --stdin-filepath %"
+
+        call setpos('.', l:cursor)
+    endfunction
+
+    " au BufWritePre *.js call s:onSave()
+
+endfunction
+" }}}1
+
+
 " Custom linting configuration {{{1
 if !exists("*SetOneStyle")
 
@@ -31,45 +76,7 @@ if !exists("*SetOneStyle")
 
         highlight ColorColumn ctermbg=8
 
-        " Load syntax on .make files
-        au BufRead,BufNewFile *.make set ft=make
-
-        " Configure prettier
-        if !exists('g:loaded_prettier')
-            let g:loaded_prettier = v:true
-
-            function s:configurePrettier()
-                let l:packagejson = findfile('package.json', '.;')
-                let l:project_root_path = fnamemodify(l:packagejson, ':p:h')
-
-                if executable(l:project_root_path . '/node_modules/.bin/prettier')
-                    let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
-                else
-                    " fallback to the default one
-                    let g:prettier_prg = 'prettier'
-                endif
-
-                if executable(g:prettier_prg)
-                    let &formatprg=g:prettier_prg . ' --stdin --stdin-filepath %'
-                endif
-            endfunction
-
-            au BufNewFile,BufWinEnter *.js call s:configurePrettier()
-
-            function s:onSave()
-                if !executable(g:prettier_prg)
-                    return
-                endif
-
-                let l:cursor = getcurpos()
-
-                execute "%!".g:prettier_prg." --stdin-filepath %"
-
-                call setpos('.', l:cursor)
-            endfunction
-
-            " au BufWritePre *.js call s:onSave()
-        endif
+        call s:loadPrettier()
 
     endfunction
 
@@ -177,6 +184,9 @@ set backupcopy=yes
 
 " Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
+
+" Load syntax on .make files
+au BufRead,BufNewFile *.make set ft=make
 
 " Use cssnext syntax for .css file
 " au BufNewFile,BufRead *.css set filetype=cssnext
