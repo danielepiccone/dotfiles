@@ -9,8 +9,27 @@ function! s:loadPrettier()
         return
     endif
 
+    """ Utils
+    function s:replaceBufferContent(new_buffer)
+        " remove all buffer content
+        silent! execute '%delete _'
+
+        " put the new content
+        silent! execute '%put = a:new_buffer'
+
+        " remove extra line at the top
+        silent! execute '0delete _'
+    endfunction
+
+    function s:getBufferContent()
+        return join(getline(1, '$'), "\n")
+    endfunction
+
     let g:loaded_prettier = v:true
     let g:prettier_prg = ''
+
+    " onsave is disabled by default
+    " let g:prettier_onsave = 1
 
     function s:configurePrettier()
         let l:packagejson = findfile('package.json', '.;')
@@ -35,14 +54,25 @@ function! s:loadPrettier()
             return
         endif
 
+        if !exists('g:prettier_onsave')
+            return
+        endif
+
+        " save the cursor pos
         let l:cursor = getcurpos()
 
-        execute "%!".g:prettier_prg." --stdin-filepath %"
+        let l:new_buffer = system(g:prettier_prg . " --stdin --stdin-filepath " . expand('%:p'), s:getBufferContent())
 
-        call setpos('.', l:cursor)
+        if (v:shell_error == 0)
+            call s:replaceBufferContent(l:new_buffer)
+
+            " restore the cursor pos
+            call setpos('.', l:cursor)
+        endif
+
     endfunction
 
-    " au BufWritePre *.js call s:onSave()
+    au BufWritePre *.js call s:onSave()
 
 endfunction
 " }}}1
