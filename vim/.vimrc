@@ -25,6 +25,12 @@ function! s:loadPrettier()
         return join(getline(1, '$'), "\n")
     endfunction
 
+    function s:executePrettierOnBuffer()
+        let l:cursor = getcurpos()
+        silent execute "normal! ggVGgq"
+        call setpos('.', l:cursor)
+    endfunction
+
     let g:loaded_prettier = v:true
     let g:prettier_prg = ''
 
@@ -69,10 +75,11 @@ function! s:loadPrettier()
             " restore the cursor pos
             call setpos('.', l:cursor)
         endif
-
     endfunction
 
     au BufWritePre *.js call s:onSave()
+
+    command! Prettier call s:executePrettierOnBuffer()
 
 endfunction
 " }}}1
