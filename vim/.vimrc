@@ -43,6 +43,8 @@ function! s:loadPrettier()
 
         if executable(l:project_root_path . '/node_modules/.bin/prettier')
             let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
+            " enable prettier on save
+            let g:prettier_onsave = 1
         else
             " fallback to the default one
             let g:prettier_prg = 'prettier'
