@@ -1,3 +1,4 @@
 *.swp
 vim/.vim/tmp/*
 vim/.vim/.netrwhist
+fonts/**/*.uuid
