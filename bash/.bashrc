@@ -2,11 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Base 16
-BASE16_SHELL=$HOME/dotfiles/bash/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -121,8 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-### --- end skel
+### custom ---
 
 # Custom aliases
 vigit() {
@@ -153,12 +151,9 @@ export PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u \[\e[33m\]\w\[\e[0m\] \[\e[35m\]$(parse_
 export TERM=xterm-256color
 export NODE_ENV=development
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
-# RVM
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Base 16
+# BASE16_SHELL=$HOME/dotfiles/bash/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # Z
 which z > /dev/null && . `which z`
@@ -171,4 +166,6 @@ source ~/dotfiles/bash/cd.sh
 
 # Fortune
 tput bold && fortune && tput sgr0
+
+### end custom ---
 
