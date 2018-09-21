@@ -1,3 +1,4 @@
+DWM_PATCHES_DIR = ~/dotfiles/dwm/patches
 DWM_PATCH = ~/dotfiles/dwm/patches/6.1.diff
 DWM_XSESSION = ~/dotfiles/dwm/xsessions/dwm.desktop
 
@@ -33,6 +34,9 @@ dwm:
 	cd ${DWM} && sed '21d' config.mk -i
 	cd ${DWM} && make
 	cd ${DWM} && patch config.h < ${DWM_PATCH}
+	# Disable unicode in xsetroot, crashes on ubuntu 18.04
+	# https://wiki.archlinux.org/index.php/dwm
+	cd ${DWM} && patch drw.c < ${DWM_PATCHES_DIR}/disable_unicode.diff
 	cd ${DWM} && sudo make install
 
 dwm-save-patch:

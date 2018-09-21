@@ -1,0 +1,4 @@
+24c24
+< 			return (unsigned char)c & ~utfmask[*i];
+---
+>       return (unsigned char)c;
