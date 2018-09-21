@@ -24,7 +24,7 @@ do
     if [ "$CSUM" != "$NEW_CSUM" ]
     then
         CSUM=$NEW_CSUM
-        dwm 2> ~/.dwm.log
+        dwm >> ~/.dwm.log 2>&1
     else
         exit 0
     fi
