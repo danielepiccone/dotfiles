@@ -12,66 +12,46 @@
 " let g:loaded_the_little_test_helper = 1
 let v:errors = []
 
-" TODO
-" the order of the candidates in these functions must be the same
-" with the first one (the last inserted is the first one (shift))
-" being the easiest and the last one the hardest
-
-function! s:findTestFoldersInProject()
-  " get the project path
-  " :set wildignore+=*/node_modules/*
-  " echo finddir('test', '**', '4')
+function! s:getProjectRootPath()
+  return substitute(finddir('.git', ';'), '.git', '', '')
 endfunction
 
-function! s:getTestCandidates(fullFileName)
-  let l:candidates = []
+function! s:getCurrentFilePath()
+  return substitute(expand('%:p'), expand('%:t'), '', '')
+endfunction
 
+function! s:getJestTestsPath()
+  return s:getCurrentFilePath() . '__tests__/'
+endfunction
+
+function! s:getTestCandidates(fullFileName, paths)
+  let l:candidates = []
   let l:pathTokens = split(a:fullFileName, '/')
   let l:fileName = remove(l:pathTokens, len(l:pathTokens) - 1)
-
   let l:specFile = substitute(fileName,'\.jsx\?$','\.spec.js', '')
   let l:testFile = substitute(fileName,'\.jsx\?$','\.test.js', '')
-  let l:testFolderFile = substitute(fileName,'\(.*\)\.\(jsx\?\)$','__tests__/\1\.js', '')
-  let l:testFolderTestFile = substitute(fileName,'\(.*\)\.\(jsx\?\)$','__tests__/\1\.test.js', '')
 
-  call insert(l:candidates, l:testFolderTestFile)
-  call insert(l:candidates, l:testFolderFile)
-  call insert(l:candidates, l:testFile)
-  call insert(l:candidates, l:specFile)
+  for path in a:paths
+    call insert(l:candidates, path . l:specFile)
+    call insert(l:candidates, path . l:testFile)
+    if (path . l:fileName != a:fullFileName)
+      call insert(l:candidates, path . l:fileName)
+    endif
+  endfor
 
   return l:candidates
 endfunction
 
 let s:test = {}
 let s:test.candidates = [
-  \ 'foobar.spec.js',
-  \ 'foobar.test.js',
-  \ '__tests__/foobar.js',
-  \ '__tests__/foobar.test.js'
+  \ '/foo/__tests__/foobar.js',
+  \ '/foo/__tests__/foobar.test.js',
+  \ '/foo/__tests__/foobar.spec.js',
+  \ '/foo/foobar.test.js',
+  \ '/foo/foobar.spec.js'
 \ ]
-call assert_equal(s:getTestCandidates('/foo/foobar.js'), s:test.candidates)
+call assert_equal(s:getTestCandidates('/foo/foobar.js', ['/foo/', '/foo/__tests__/']), s:test.candidates)
 unlet s:test
-
-function! s:getSubjectCandidates(fullFileName)
-  let l:candidates = []
-
-  let l:pathTokens = split(a:fullFileName, '/')
-  let l:fileName = remove(l:pathTokens, len(l:pathTokens) - 1)
-
-  " remove test and spec and file from the extension
-  let l:testOrSpecRe = '\.\(test\|spec\)\.js$'
-  if matchstr(l:fileName, l:testOrSpecRe) != ''
-    call insert(l:candidates, substitute(l:fileName, l:testOrSpecRe, '.js', ''))
-  endif
-
-  return l:candidates
-endfunction
-
-" TODO this should return the whole path to allow __test__  ?
-"call assert_equal(s:getSubjectCandidates('/foo/__test__/foobar.test.js'), ['../foobar.js'])
-"call assert_equal(s:getSubjectCandidates('/foo/__test__/foobar.test.js'), ['../foobar.js'])
-call assert_equal(s:getSubjectCandidates('/foo/foobar.test.js'), ['foobar.js'])
-call assert_equal(s:getSubjectCandidates('/foo/foobar.spec.js'), ['foobar.js'])
 
 function! s:tryCandidates(candidates)
   for candidate in a:candidates
@@ -79,10 +59,6 @@ function! s:tryCandidates(candidates)
       return candidate
     endif
   endfor
-endfunction
-
-function! s:getProjectRoot()
-  return substitute(finddir('.git', ';'), '/.git', '', '')
 endfunction
 
 function! s:isTest(fileName)
@@ -104,19 +80,21 @@ call assert_equal(s:isTest('foo.js'), 0)
 
 function! ToggleTests()
   let l:fileName = expand('%:p')
-  " TODO find tests starting from the root /test
-  " let l:rootPath = s:getProjectRoot()
+  let l:paths = []
+  let l:found = ''
+
+  call insert(l:paths, s:getCurrentFilePath())
+  call insert(l:paths, s:getJestTestsPath())
 
   if s:isTest(l:fileName)
-    let l:candidates = s:getSubjectCandidates(l:fileName)
-    let l:found = s:tryCandidates(l:candidates)
+    " Do nothing
   else
-    let l:candidates = s:getTestCandidates(l:fileName)
+    let l:candidates = s:getTestCandidates(l:fileName, l:paths)
     let l:found = s:tryCandidates(l:candidates)
   endif
 
   if l:found != ''
-    execute 'open ' . l:found
+    execute 'e ' . l:found
   endif
 endfunction
 
