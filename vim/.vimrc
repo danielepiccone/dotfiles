@@ -152,7 +152,7 @@ execute pathogen#infect()
 " Customization
 behave xterm
 colors molokai
-set nu
+" set nu
 set backspace=indent,eol,start
 set helplang=En
 set history=100
