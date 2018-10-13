@@ -1,3 +1,6 @@
 [submodule "bash/base16-shell"]
 	path = bash/base16-shell
 	url = git@github.com:chriskempson/base16-shell.git
+[submodule "ctags/ctags-patterns-for-javascript"]
+	path = ctags/ctags-patterns-for-javascript
+	url = git@github.com:romainl/ctags-patterns-for-javascript.git
