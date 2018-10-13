@@ -203,6 +203,10 @@ let g:ale_linters = { 'javascript': ['standard'] }
 " let g:ale_linters = { 'javascript': ['standard', 'flow'] }
 " let g:javascript_plugin_flow = 1
 
+" ctags
+" look for tags file up to the root
+set tags=tags;/
+
 " Startup
 cd ~/Documents
 
