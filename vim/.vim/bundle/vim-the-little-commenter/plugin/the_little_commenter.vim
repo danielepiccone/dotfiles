@@ -3,7 +3,7 @@
 " Author: Daniele Piccone <mail@danielepiccone.com>
 
 function! s:getCommentBoundaries()
-  return map(split(&commentstring, "%s", 1), { key, val -> escape(val, "*") })
+  return split(&commentstring, "%s", 1)
 endfunction
 
 function! s:ensureLanguageSupport()
@@ -24,9 +24,9 @@ function! s:toggleComment(line, shouldComment, boundaries, padding)
       let updatedLine = substitute(updatedLine, '$', ' ' . rboundary, '')
     endif
   else
-    let updatedLine = substitute(a:line, '^\(\s*\)' . lboundary . ' ', '\1', 'g')
+    let updatedLine = substitute(a:line, '^\(\s*\)' . escape(lboundary, '*') . ' ', '\1', 'g')
     if rboundary != ''
-      let updatedLine = substitute(updatedLine, " " . rboundary . "$", "", "")
+      let updatedLine = substitute(updatedLine, " " . escape(rboundary, '*') . "$", "", "")
     endif
   endif
   return updatedLine
@@ -34,7 +34,7 @@ endfunction
 
 function! s:shouldComment(line)
   let [lboundary, rboundary] = s:getCommentBoundaries()
-  return !(a:line =~ '^\s*'. lboundary)
+  return !(a:line =~ '^\s*'. escape(lboundary, '*'))
 endfunction
 
 function! s:getLinePadding(line)
