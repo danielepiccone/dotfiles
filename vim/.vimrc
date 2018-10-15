@@ -277,6 +277,9 @@ let g:ctrlp_working_path_mode = 'ra'
 """ One specific
 au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
 
+" Ocaml comments
+autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
+
 """ OSX specific
 if has('macunix')
   colors default
