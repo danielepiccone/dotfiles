@@ -163,6 +163,9 @@ set laststatus=2
 set statusline+=%F
 set mouse=a
 
+" Remap Ctrl-click to file navigation
+map <C-LeftMouse> <LeftMouse>gf
+
 " Default to 25 lines when Lexplore
 let g:netrw_winsize=25
 
