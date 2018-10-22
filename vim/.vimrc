@@ -55,7 +55,7 @@ function! s:loadPrettier()
         endif
     endfunction
 
-    au BufNewFile,BufWinEnter *.js call s:configurePrettier()
+    au BufNewFile,BufEnter *.js call s:configurePrettier()
 
     function s:onSave()
         if !executable(g:prettier_prg)
