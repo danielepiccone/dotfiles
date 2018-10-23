@@ -34,6 +34,8 @@ endfunction
 
 function! s:shouldComment(line)
   let [lboundary, rboundary] = s:getCommentBoundaries()
+  " TODO this breaks for empty lines with only the comment boundary
+  " eg: //
   return !(a:line =~ '^\s*'. escape(lboundary, '*'))
 endfunction
 
