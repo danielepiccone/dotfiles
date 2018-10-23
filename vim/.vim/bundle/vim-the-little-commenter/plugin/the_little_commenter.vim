@@ -24,7 +24,7 @@ function! s:toggleComment(line, shouldComment, boundaries, padding)
       let updatedLine = substitute(updatedLine, '$', ' ' . rboundary, '')
     endif
   else
-    let updatedLine = substitute(a:line, '^\(\s*\)' . escape(lboundary, '*') . ' ', '\1', 'g')
+    let updatedLine = substitute(a:line, '^\(\s*\)' . escape(lboundary, '*') . '\(\s\{0,1\}\)', '\1', 'g')
     if rboundary != ''
       let updatedLine = substitute(updatedLine, " " . escape(rboundary, '*') . "$", "", "")
     endif
@@ -97,6 +97,7 @@ if &ft == 'vim'
   call assert_equal(s:toggleComment('" foobar', v:false, s:test.boundaries, 0), 'foobar')
   call assert_equal(s:toggleComment('  " foobar', v:false, s:test.boundaries, 0), '  foobar')
   call assert_equal(s:toggleComment('"', v:false, s:test.boundaries, 0), '')
+  call assert_equal(s:toggleComment('"', v:false, s:test.boundaries, 2), '')
 
   let s:test.boundaries = ['<', '>']
   call assert_equal(s:toggleComment('foobar', v:true, s:test.boundaries, 0), '< foobar >')
