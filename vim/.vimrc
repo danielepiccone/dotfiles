@@ -9,29 +9,13 @@ function! s:loadPrettier()
         return
     endif
 
-    """ Utils
-    function s:replaceBufferContent(new_buffer)
-        " remove all buffer content
-        silent! execute '%delete _'
-
-        " put the new content
-        silent! execute '%put = a:new_buffer'
-
-        " remove extra line at the top
-        silent! execute '0delete _'
-    endfunction
-
-    function s:getBufferContent()
-        return join(getline(1, '$'), "\n")
-    endfunction
-
     function s:executePrettierOnBuffer()
         let l:cursor = getcurpos()
         silent execute "normal! ggVGgq"
         call setpos('.', l:cursor)
     endfunction
 
-    let g:loaded_prettier = v:true
+    let g:loaded_prettier = 1
     let g:prettier_prg = ''
 
     " onsave is disabled by default
@@ -43,8 +27,6 @@ function! s:loadPrettier()
 
         if executable(l:project_root_path . '/node_modules/.bin/prettier')
             let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
-            " enable prettier on save
-            let g:prettier_onsave = 1
         else
             " fallback to the default one
             let g:prettier_prg = 'prettier'
@@ -57,30 +39,6 @@ function! s:loadPrettier()
 
     au BufNewFile,BufEnter *.js call s:configurePrettier()
 
-    function s:onSave()
-        if !executable(g:prettier_prg)
-            return
-        endif
-
-        if !exists('g:prettier_onsave')
-            return
-        endif
-
-        " save the cursor pos
-        let l:cursor = getcurpos()
-
-        let l:new_buffer = system(g:prettier_prg . " --stdin --stdin-filepath " . expand('%:p'), s:getBufferContent())
-
-        if (v:shell_error == 0)
-            call s:replaceBufferContent(l:new_buffer)
-
-            " restore the cursor pos
-            call setpos('.', l:cursor)
-        endif
-    endfunction
-
-    au BufWritePre *.js call s:onSave()
-
     command! Prettier call s:executePrettierOnBuffer()
 
 endfunction
@@ -91,6 +49,7 @@ endfunction
 if !exists("*SetOneStyle")
 
     function SetOneStyle()
+        call s:loadPrettier()
 
         " Syntastic configuration
         "
@@ -105,6 +64,8 @@ if !exists("*SetOneStyle")
 
         let g:ale_linter_aliases = {'less': 'css'}
         let g:ale_linters = { 'javascript': ['eslint'], 'typescript': ['tslint'] }
+        let g:ale_fixers = { 'javascript': ['prettier']}
+        let g:ale_fix_on_save = 1
 
         let g:javascript_plugin_jsdoc = 1
 
@@ -114,9 +75,6 @@ if !exists("*SetOneStyle")
         set cc=80
 
         highlight ColorColumn ctermbg=8
-
-        call s:loadPrettier()
-
     endfunction
 
 endif
