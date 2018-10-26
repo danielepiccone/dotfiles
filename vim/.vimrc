@@ -18,14 +18,24 @@ function! s:loadPrettier()
     let g:loaded_prettier = 1
     let g:prettier_prg = ''
 
+    function s:getProjectRootPath()
+        let l:packagejson = findfile('package.json', '.;')
+        let l:project_root_path = fnamemodify(l:packagejson, ':p:h')
+        return l:project_root_path
+    endfunction
+
+    function s:hasLocalPrettier()
+        let l:project_root_path = s:getProjectRootPath()
+        return executable(l:project_root_path . '/node_modules/.bin/prettier')
+    endfunction
+
     " onsave is disabled by default
     " let g:prettier_onsave = 1
 
     function s:configurePrettier()
-        let l:packagejson = findfile('package.json', '.;')
-        let l:project_root_path = fnamemodify(l:packagejson, ':p:h')
+        let l:project_root_path = s:getProjectRootPath()
 
-        if executable(l:project_root_path . '/node_modules/.bin/prettier')
+        if s:hasLocalPrettier()
             let g:prettier_prg = l:project_root_path . '/node_modules/.bin/prettier'
         else
             " fallback to the default one
