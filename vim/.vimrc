@@ -29,9 +29,6 @@ function! s:loadPrettier()
         return executable(l:project_root_path . '/node_modules/.bin/prettier')
     endfunction
 
-    " onsave is disabled by default
-    " let g:prettier_onsave = 1
-
     function s:configurePrettier()
         let l:project_root_path = s:getProjectRootPath()
 
@@ -48,6 +45,29 @@ function! s:loadPrettier()
     endfunction
 
     au BufNewFile,BufEnter *.js call s:configurePrettier()
+
+    function s:executePrettierOnFile()
+        if !executable(g:prettier_prg)
+            return
+        endif
+
+        " onsave is disabled by default
+        " let g:prettier_onsave = 1
+
+        if !exists('g:prettier_onsave')
+            return
+        endif
+
+        let l:view = winsaveview()
+
+        let l:command=g:prettier_prg . ' --write ' . expand('%:p')
+        call system(l:command)
+
+        call execute('edit!', 'silent!')
+        call winrestview(l:view)
+    endfunction
+
+    au BufWritePost *.js call s:executePrettierOnFile()
 
     command! Prettier call s:executePrettierOnBuffer()
 
@@ -75,7 +95,8 @@ if !exists("*SetOneStyle")
         let g:ale_linter_aliases = {'less': 'css'}
         let g:ale_linters = { 'javascript': ['eslint'], 'typescript': ['tslint'] }
         let g:ale_fixers = { 'javascript': ['prettier']}
-        let g:ale_fix_on_save = 1
+        " let g:ale_fix_on_save = 1
+        let g:prettier_onsave = 1
 
         let g:javascript_plugin_jsdoc = 1
 
