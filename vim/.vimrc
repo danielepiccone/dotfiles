@@ -58,6 +58,7 @@ function! s:loadPrettier()
             return
         endif
 
+        let l:nlines_before = line('$')
         let l:view = winsaveview()
 
         let l:command=g:prettier_prg . ' --write ' . expand('%:p')
@@ -65,7 +66,9 @@ function! s:loadPrettier()
 
         call execute('edit!', 'silent!')
         call winrestview(l:view)
-        " TODO jump the difference between no.lines before - after
+
+        let l:difflines = line('$') - l:nlines_before
+        call cursor(line('.') + l:difflines, 0)
     endfunction
 
     au BufWritePost *.js call s:executePrettierOnFile()
