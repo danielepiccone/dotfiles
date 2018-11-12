@@ -24,15 +24,6 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (package-initialize)
 
-;; Enable autocomplete
-
-(global-auto-complete-mode t)
-
-;; Enable evil mode
-
-(require 'evil)
-(evil-mode t)
-
 ;; No tabs
 
 (setq-default indent-tabs-mode nil)

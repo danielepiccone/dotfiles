@@ -1,0 +1,6 @@
+[
+    {
+        "key":"ctrl+c ctrl+c",
+        "command": "workbench.action.terminal.runSelectedText"
+    }
+]
