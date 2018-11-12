@@ -65,6 +65,7 @@ function! s:loadPrettier()
 
         call execute('edit!', 'silent!')
         call winrestview(l:view)
+        " TODO jump the difference between no.lines before - after
     endfunction
 
     au BufWritePost *.js call s:executePrettierOnFile()
@@ -265,6 +266,11 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = '\.git/\|node_modules\|bower_components'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra'
+
+" Slime
+if v:version >= 800
+    let g:slime_target='vimterminal'
+endif
 
 """ One specific
 au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
