@@ -9,14 +9,18 @@ function! s:loadPrettier()
         return
     endif
 
+    let g:loaded_prettier = 1
+    let g:prettier_prg = ''
+    let g:prettier_supported_ft = [
+        \ 'javascript',
+        \ 'javascript.jsx'
+    \ ]
+
     function s:executePrettierOnBuffer()
         let l:cursor = getcurpos()
         silent execute "normal! ggVGgq"
         call setpos('.', l:cursor)
     endfunction
-
-    let g:loaded_prettier = 1
-    let g:prettier_prg = ''
 
     function s:getProjectRootPath()
         let l:packagejson = findfile('package.json', '.;')
@@ -29,7 +33,15 @@ function! s:loadPrettier()
         return executable(l:project_root_path . '/node_modules/.bin/prettier')
     endfunction
 
+    function s:isSupported()
+        return index(g:prettier_supported_ft, &filetype) != -1
+    endfunction
+
     function s:configurePrettier()
+        if !s:isSupported()
+            return
+        endif
+
         let l:project_root_path = s:getProjectRootPath()
 
         if s:hasLocalPrettier()
@@ -61,6 +73,7 @@ function! s:loadPrettier()
         let l:nlines_before = line('$')
         let l:view = winsaveview()
 
+        " TODO pass the filetype to prettier when devoid of extension
         let l:command=g:prettier_prg . ' --write ' . expand('%:p')
         call system(l:command)
 
