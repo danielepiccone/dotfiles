@@ -1,0 +1,30 @@
+#!/bin/bash
+
+repos=~/Documents/one
+name=$(whoami)
+yesterday=$(date -d "yesterday" "+%Y-%m-%d")
+
+print_commits() {
+    if ! [ -d ".git" ]; then
+        return
+    fi
+
+    local repo_folder=$1
+    local commits=$(git log --committer="$name" --since="$yesterday" --oneline)
+
+    if [ "$commits" ]; then
+        tput bold && echo $repo_folder && tput init
+        echo "$commits"
+        echo
+    fi
+}
+
+for repo in $(ls $repos); do
+    if [ -d "$repos/$repo" ]; then
+        pushd $repos/$repo > /dev/null
+
+        print_commits $repos/$repo
+
+        popd >/dev/null
+    fi
+done
