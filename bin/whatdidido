@@ -4,6 +4,13 @@ repos=~/Documents/one
 name=$(whoami)
 yesterday=$(date -d "yesterday" "+%Y-%m-%d")
 
+verbose=false
+
+print_commit() {
+  local sha=$1
+  git show --oneline --name-only $sha
+}
+
 print_commits() {
     if ! [ -d ".git" ]; then
         return
@@ -13,9 +20,17 @@ print_commits() {
     local commits=$(git log --committer="$name" --since="$yesterday" --oneline)
 
     if [ "$commits" ]; then
-        tput bold && echo $repo_folder && tput init
-        echo "$commits"
-        echo
+        tput bold && echo $repo_folder && tput sgr0
+
+        if $verbose; then
+          for commit in $(echo "$commits" | awk '{print $1}'); do
+            print_commit $commit
+            echo
+          done
+        else
+          echo "$commits"
+          echo
+        fi
     fi
 }
 
