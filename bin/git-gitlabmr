@@ -1,21 +1,18 @@
 #!/bin/bash
+# Opens a new MR on gitlab with the current branch against master
+# Tested working on Ubuntu/Debian
 
-# opens a PR on gitlab with the current branch against master
-if [ -f ~/.env ]
-then
-  export $(cat ~/.env | xargs)
-fi
-
-# Argumens
-ARG_TARGET=$1
-
-# import from env
+# Env
+source ~/.env
 ONE_GITLAB_URL=$ONE_GITLAB_URL
+
+# Arguments
+ARG_TARGET=$1
 
 REPO_NAME=$(git remote get-url origin | sed -E 's/^.*\/(.*)\.git/\1/')
 BRANCH_SOURCE=$(git rev-parse --abbrev-ref HEAD)
 
-if [ -z $ARG_TARGET ]; then
+if test -z "$ARG_TARGET"; then
   BRANCH_TARGET=master
 else
   BRANCH_TARGET=$ARG_TARGET
@@ -25,5 +22,5 @@ URL="$ONE_GITLAB_URL/$REPO_NAME/merge_requests/new?utf8=%E2%9C%93&merge_request%
 
 echo "Opening a MR for: $BRANCH_SOURCE on $BRANCH_TARGET"
 
-firefox $URL
+sensible-browser "$URL"
 
