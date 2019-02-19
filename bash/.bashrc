@@ -128,13 +128,12 @@ vigit() {
 }
 
 # Append current git branch in prompt
-parse_git_branch() {
+# alternative to git provided __git_ps1()
+__parse_git_branch() {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
   fi
-  git_branch=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-  echo "$git_branch"
-
+  echo $(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
 }
 
 # Platfrorm specific
@@ -145,7 +144,7 @@ if [[ $PLATFORM == "Linux" ]]; then
 fi
 
 # Custom prompt
-export PS1='\[\e]0;\w\a\]\n\[\e[1;32m\]\u \[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(parse_git_branch)\[\e[0m\]$ '
+export PS1='\[\e]0;\w\a\]\n\[\e[1;32m\]\u \[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__parse_git_branch)\[\e[0m\]$ '
 
 # Export
 export TERM=xterm-256color
