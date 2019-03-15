@@ -128,6 +128,7 @@ if !exists("*SetOneStyle")
 endif
 " }}}1
 
+
 let s:cpo_save=&cpo
 set cpo&vim
 let &cpo=s:cpo_save
@@ -291,8 +292,9 @@ endif
 """ One specific
 au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
 
-" Ocaml comments
+" Ocaml specific
 autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
+
 
 """ OSX specific
 if has('macunix')
@@ -309,3 +311,11 @@ nnoremap <C-k> :m .-2<CR>
 
 """ Custom functions
 command! GetPackageJson execute "edit " . findfile("package.json", ".;")
+
+function! s:setJavaClassPath()
+    " has all sources in ./src
+    let l:project_root=finddir("src/..", ".;")
+    let g:ale_java_javac_classpath = l:project_root
+endfunction
+
+command! SetJavaClasspath call s:setJavaClassPath()
