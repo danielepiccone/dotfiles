@@ -110,8 +110,6 @@ if !exists("*SetOneStyle")
         set softtabstop=4
         set tabstop=4
         set cc=80
-
-        highlight ColorColumn ctermbg=8
     endfunction
 
 endif
@@ -194,6 +192,8 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set autoindent
+set cc=80
+
 filetype indent off
 
 " Enable custom standard linters in JS
@@ -290,6 +290,9 @@ if has('macunix')
   colors default
 endif
 
+""" Specific color overrides
+highlight ColorColumn ctermbg=8
+
 """ Custom shortcuts
 
 " Move lines up/down
@@ -318,3 +321,4 @@ function! s:setJavaClassPath()
 endfunction
 
 command! SetJavaClasspath call s:setJavaClassPath()
+
