@@ -304,7 +304,17 @@ command! GetPackageJson execute "edit " . findfile("package.json", ".;")
 function! s:setJavaClassPath()
     " has all sources in ./src
     let l:project_root=finddir("src/..", ".;")
-    let g:ale_java_javac_classpath = l:project_root
+
+    " add resources
+    let l:project_resources=finddir("res/", ".;")
+    let l:resources_list=globpath(l:project_resources, '*.jar', 0, 1)
+
+    let l:jar_files = ""
+    for l:resource in l:resources_list
+        let l:jar_files = l:jar_files . ":" . l:resource
+    endfor
+
+    let g:ale_java_javac_classpath = l:project_root . ":" . l:jar_files
 endfunction
 
 command! SetJavaClasspath call s:setJavaClassPath()
