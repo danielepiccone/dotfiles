@@ -322,3 +322,15 @@ endfunction
 
 command! SetJavaClasspath call s:setJavaClassPath()
 
+function! SetIncludeExprJS(fname)
+    let l:project_node_modules=finddir("node_modules/", ".;")
+    let l:module_dir = l:project_node_modules . a:fname
+
+    if filereadable(l:module_dir . "/package.json")
+        return l:module_dir
+    else
+        return ""
+    endif
+endfunction
+
+set includeexpr=SetIncludeExprJS(v:fname)
