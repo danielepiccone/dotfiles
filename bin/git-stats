@@ -1,1 +1,1 @@
-git log --all --no-merges --pretty=format:"%an" | sort | uniq -c
+git log --all --no-merges --pretty=format:"%an" | sort | uniq -c | sort -nr
