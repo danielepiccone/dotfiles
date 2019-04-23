@@ -1,0 +1,8 @@
+#!/bin/bash
+device_name="SynPS/2 Synaptics TouchPad"
+
+if test -z "$(xinput list | grep "$device_name")"; then
+  echo "No touchpad detected."
+else
+  xinput set-prop "$device_name" 'libinput Tapping Enabled' 1
+fi
