@@ -334,3 +334,5 @@ function! SetIncludeExprJS(fname)
 endfunction
 
 set includeexpr=SetIncludeExprJS(v:fname)
+
+command! FoldTests execute "%g/^\\s*it(.* => {/normal! zf%"
