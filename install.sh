@@ -1,8 +1,14 @@
 #!/bin/sh
 echo "Installing dependencies..."
 
-dependencies="shellcheck build-essential feh"
+if test "$(uname)" = "Darwin"; then
+  dependencies="shellcheck coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep"
+  brew install $dependencies
+  exit 0
+fi
 
-for dependency in $dependencies; do
-  sudo apt install $dependency
-done
+if test "$(uname)" = "Linux"; then
+  dependencies="shellcheck build-essential feh"
+  sudo apt-get install $dependencies
+  exit 0
+fi
