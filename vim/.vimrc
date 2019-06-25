@@ -121,11 +121,6 @@ set cpo&vim
 let &cpo=s:cpo_save
 unlet s:cpo_save
 
-" Support X / Windows clipboard copy/paste
-nmap  "+gP
-omap  "+gP
-vnoremap  "+y
-
 " Commands remapping, conflicting with Emmet
 cabbrev E Explore
 
