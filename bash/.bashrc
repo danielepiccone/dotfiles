@@ -116,11 +116,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
+### custom ---
+
+# Nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-### custom ---
+# Homebrew Python3 as default Python
+if [ -d /usr/local/opt/python/libexec/bin ]; then
+  export PATH=/usr/local/opt/python/libexec/bin:$PATH
+fi
 
 # Custom aliases
 vigit() {
