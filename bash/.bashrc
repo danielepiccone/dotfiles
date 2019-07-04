@@ -164,7 +164,9 @@ export DOCKER_API_VERSION=1.24
 source ~/dotfiles/bash/cd.sh
 
 # Fortune
-tput bold && fortune && tput sgr0
+if test ! -z "$(which fortune)"; then
+  tput bold && fortune && tput sgr0
+fi
 
 ### end custom ---
 
