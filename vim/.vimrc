@@ -139,7 +139,7 @@ endif
 execute pathogen#infect()
 
 " Customization
-set term=builtin_ansi
+set term=xterm
 set mouse=a
 set ttymouse=xterm
 " set nu
