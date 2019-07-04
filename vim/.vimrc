@@ -151,6 +151,7 @@ set t_Co=256
 set laststatus=2
 set statusline+=%F
 set mouse=a
+set ttymouse=xterm
 
 " Remap Ctrl-click to file navigation
 map <C-LeftMouse> <LeftMouse>gf
@@ -279,14 +280,20 @@ au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
 " Ocaml specific
 autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
 
-
 """ OSX specific
 if has('macunix')
   colors default
 endif
 
+set term=builtin_ansi
+syntax on
+
 """ Specific color overrides
 highlight ColorColumn ctermbg=8
+
+
+
+
 
 """ Custom shortcuts
 
