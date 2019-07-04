@@ -139,8 +139,9 @@ endif
 execute pathogen#infect()
 
 " Customization
-behave xterm
-colors molokai
+set term=builtin_ansi
+set mouse=a
+set ttymouse=xterm
 " set nu
 set backspace=indent,eol,start
 set helplang=En
@@ -150,8 +151,9 @@ set incsearch
 set t_Co=256
 set laststatus=2
 set statusline+=%F
-set mouse=a
-set ttymouse=xterm
+behave xterm
+colors molokai
+syntax on
 
 " Remap Ctrl-click to file navigation
 map <C-LeftMouse> <LeftMouse>gf
@@ -282,11 +284,9 @@ autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
 
 """ OSX specific
 if has('macunix')
-  colors default
+  " colors default
 endif
 
-set term=builtin_ansi
-syntax on
 
 """ Specific color overrides
 highlight ColorColumn ctermbg=8
