@@ -156,6 +156,10 @@ export PS1='\[\e]0;\w\a\]\n\[\e[1;32m\]\u \[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__
 export TERM=xterm-256color
 export NODE_ENV=development
 
+# Export the locale with the right character set
+# ref. https://stackoverflow.com/questions/56716993/error-message-when-starting-vim-failed-to-set-locale-category-lc-numeric-to-en
+export LC_ALL=en_US.UTF-8
+
 # Base 16
 # BASE16_SHELL=$HOME/dotfiles/bash/base16-shell/
 # [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
