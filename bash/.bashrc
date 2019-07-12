@@ -150,7 +150,7 @@ if [[ $PLATFORM == "Linux" ]]; then
 fi
 
 # Custom prompt
-export PS1='\[\e]0;\w\a\]\n\[\e[1;32m\]\u \[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__parse_git_branch)\[\e[0m\]$ '
+export PS1='\[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__parse_git_branch)\[\e[0m\]$ '
 
 # Export
 export TERM=xterm-256color
