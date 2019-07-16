@@ -195,10 +195,8 @@ set cc=80
 filetype indent off
 
 " Enable custom standard linters in JS
-" let g:syntastic_javascript_checkers = ['standard']
-let g:ale_linters = { 'javascript': ['standard'] }
-" let g:ale_linters = { 'javascript': ['standard', 'flow'] }
-" let g:javascript_plugin_flow = 1
+let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " ctags
 " look for tags file up to the root
