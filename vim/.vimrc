@@ -196,7 +196,8 @@ filetype indent off
 
 " Enable custom standard linters in JS
 let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier-eslint'] }
+"let g:ale_javascript_prettier_eslint_executable = 'prettier-eslint'
 
 " ctags
 " look for tags file up to the root
