@@ -128,6 +128,11 @@ if [ -d /usr/local/opt/python/libexec/bin ]; then
   export PATH=/usr/local/opt/python/libexec/bin:$PATH
 fi
 
+# Homebrew git bash completion
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+  source /usr/local/etc/bash_completion.d/git-completion.bash
+fi
+
 # Custom aliases
 vigit() {
   vi $(git status --porcelain | awk '{ print $2 }')
