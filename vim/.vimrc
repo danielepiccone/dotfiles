@@ -115,6 +115,23 @@ if !exists("*SetOneStyle")
 endif
 " }}}1
 
+" Custom linting configuration {{{1
+if !exists("*SetTrustpilotStyle")
+
+    function SetTrustpilotStyle()
+        " Mainly Python
+        set shiftwidth=4
+        set softtabstop=4
+        set tabstop=4
+        set cc=80
+
+        let g:ale_linters = { 'python': ['pycodestyle'] }
+        let g:ale_fixers = { 'python': ['autopep8'] }
+    endfunction
+
+endif
+" }}}1
+
 
 let s:cpo_save=&cpo
 set cpo&vim
@@ -276,10 +293,16 @@ if v:version >= 800
 endif
 
 """ One specific
-au BufRead,BufNewFile /home/dpi/Documents/one/* call SetOneStyle()
+au BufRead,BufNewFile ~/Documents/one/* call SetOneStyle()
+
+""" Trustpilot specific
+au BufRead,BufNewFile ~/Documents/trustpilot/* call SetTrustpilotStyle()
 
 " Ocaml specific
 autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
+
+" Python specific
+autocmd FileType python set commentstring=#\%s
 
 """ OSX specific
 if has('macunix')
