@@ -125,8 +125,25 @@ if !exists("*SetTrustpilotStyle")
         set tabstop=4
         set cc=80
 
-        let g:ale_linters = { 'python': ['pycodestyle'] }
-        let g:ale_fixers = { 'python': ['autopep8'] }
+        let g:ale_linters = { 
+          \ 'python': ['pycodestyle'],
+          \ 'javascript': ['eslint'], 
+          \ 'typescript': ['tslint']
+        \ }
+        
+        let g:ale_fixers = { 
+         \ 'python': ['black'] 
+         \ 'javascript': ['prettier']
+        \ }
+        
+        let g:prettier_onsave = 1
+        let g:ale_fix_on_save = 1
+
+        """ Salesforce / SFDX
+
+        " Load syntax on Apex classesfiles
+        au BufEnter,BufRead,BufNewFile *.cls set ft=groovy
+
     endfunction
 
 endif
