@@ -125,17 +125,17 @@ if !exists("*SetTrustpilotStyle")
         set tabstop=4
         set cc=80
 
-        let g:ale_linters = { 
+        let g:ale_linters = {
           \ 'python': ['pycodestyle'],
-          \ 'javascript': ['eslint'], 
+          \ 'javascript': ['eslint'],
           \ 'typescript': ['tslint']
         \ }
-        
-        let g:ale_fixers = { 
-         \ 'python': ['black'] 
+
+        let g:ale_fixers = {
+         \ 'python': ['black'],
          \ 'javascript': ['prettier']
         \ }
-        
+
         let g:prettier_onsave = 1
         let g:ale_fix_on_save = 1
 
