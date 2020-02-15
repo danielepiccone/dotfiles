@@ -91,7 +91,6 @@ function! s:loadPrettier()
 endfunction
 " }}}1
 
-
 " Custom linting configuration {{{1
 if !exists("*SetOneStyle")
 
@@ -249,12 +248,6 @@ au BufEnter * silent! lcd %:p:h
 " https://github.com/karma-runner/karma/issues/199
 set backupcopy=yes
 
-" Less autocompiler
-" au BufWritePost,FileWritePost *.css.less silent !lessc <afile> <afile>:r
-
-" Coffeescript autocompiler
-" au BufWritePost,FileWritePost *.js.coffee silent !coffee --print -c <afile> > <afile>:r
-
 " Set knockoutjs extensions
 au BufNewFile,BufRead *.ko set filetype=html
 
@@ -282,10 +275,6 @@ au BufWritePre * :%s/\s\+$//e
 
 " Enable extended JSX syntax in Javascript files
 let g:jsx_ext_required = 0
-
-" Enable Syntastic honor tsconfig.json
-" http://stackoverflow.com/questions/34102184/use-tsconfig-json-for-tsc-with-syntastic-in-vim
-let g:syntastic_typescript_tsc_fname = ''
 
 " Reload vim runnable files after saving
 au BufWritePost *.vim source %
