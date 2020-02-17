@@ -142,6 +142,7 @@ if !exists("*SetTrustpilotStyle")
 
         " Load syntax on Apex classesfiles
         au BufEnter,BufRead,BufNewFile *.cls set ft=groovy
+        au BufEnter,BufRead,BufNewFile *.trigger set ft=groovy
 
     endfunction
 
@@ -229,7 +230,8 @@ filetype indent off
 
 " Enable custom standard linters in JS
 let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': ['prettier-eslint'] }
+let g:ale_fixers = { 'javascript': [] }
+"let g:ale_fixers = { 'javascript': ['prettier-eslint'] }
 "let g:ale_javascript_prettier_eslint_executable = 'prettier-eslint'
 
 " ctags
