@@ -118,6 +118,10 @@ fi
 
 ### custom ---
 
+# Aliases for Python3 virtualenv
+alias virtualenv='python -m venv venv'
+alias activate='source ./venv/bin/activate'
+
 # Nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
