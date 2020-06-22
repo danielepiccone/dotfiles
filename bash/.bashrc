@@ -176,9 +176,6 @@ export LC_ALL=en_US.UTF-8
 # Z
 which z > /dev/null && . `which z`
 
-# Docker API version
-export DOCKER_API_VERSION=1.24
-
 # Custom functions
 source ~/dotfiles/bash/cd.sh
 
