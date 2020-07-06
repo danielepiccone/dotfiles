@@ -229,10 +229,16 @@ set cc=80
 filetype indent off
 
 " Enable custom standard linters in JS
-let g:ale_linters = { 'javascript': ['eslint'] }
-let g:ale_fixers = { 'javascript': [] }
-"let g:ale_fixers = { 'javascript': ['prettier-eslint'] }
-"let g:ale_javascript_prettier_eslint_executable = 'prettier-eslint'
+let g:ale_linters = {
+    \ 'javascript': ['eslint'],
+    \ 'python': ['pycodestyle']
+\ }
+
+let g:ale_fixers = {
+    \ 'javascript': ['prettier'],
+    \ 'typescript': ['prettier'],
+    \ 'python': ['black']
+\ }
 
 " ctags
 " look for tags file up to the root
@@ -368,3 +374,5 @@ endfunction
 set includeexpr=SetIncludeExprJS(v:fname)
 
 command! FoldTests execute "%g/^\\s*it(.* => {/normal! zf%"
+
+command! PrettierOnSave execute let g:ale_fix_on_save = 1
