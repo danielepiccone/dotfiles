@@ -169,15 +169,11 @@ export NODE_ENV=development
 # ref. https://stackoverflow.com/questions/56716993/error-message-when-starting-vim-failed-to-set-locale-category-lc-numeric-to-en
 export LC_ALL=en_US.UTF-8
 
-# Base 16
-# BASE16_SHELL=$HOME/dotfiles/bash/base16-shell/
-# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
 # Z
 which z > /dev/null && . `which z`
 
 # Custom functions
-source ~/dotfiles/bash/cd.sh
+source ~/dotfiles/utils/cd.sh
 
 # Fortune
 if test ! -z "$(which fortune)"; then

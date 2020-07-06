@@ -3,8 +3,6 @@
 deploy in ~/dotfiles
 
 ```
-git submodule update
-
 stow fonts
 stow bash
 stow vim
