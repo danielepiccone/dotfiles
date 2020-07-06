@@ -9,7 +9,7 @@ if test "$(uname)" = "Darwin"; then
 fi
 
 if test "$(uname)" = "Linux"; then
-  dependencies="shellcheck build-essential feh"
+  dependencies="shellcheck build-essential stow feh"
   echo "Installing $dependencies with apt."
   sudo apt-get install $dependencies
   exit 0
