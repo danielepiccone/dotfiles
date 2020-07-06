@@ -195,10 +195,6 @@ map <C-LeftMouse> <LeftMouse>gf
 " Default to 25 lines when Lexplore
 let g:netrw_winsize=25
 
-" Base 16 theme
-" let base16colorspace=256
-" colors base16-default-dark
-
 if has('gui_running')
     set ghr=24 " fix for dwm http://lists.suckless.org/dwm/0904/7846.html
     set guioptions=aegimrLt
