@@ -3,7 +3,6 @@
   vars:
     current_user: "{{ user }}"
   tasks:
-
   - name: Install Docker
     apt:
       pkg:
@@ -28,6 +27,14 @@
   - name: Install VScode
     apt:
       deb: https://az764295.vo.msecnd.net/stable/cd9ea6488829f560dc949a8b2fb789f3cdc05f5d/code_1.46.1-1592428892_amd64.deb
+
+  - name: Import vscode settings
+    copy:
+      src: vscode/.config/Code/User
+      dest: ~/.config/Code
+      directory_mode: yes
+    become: yes
+    become_user: "{{ current_user }}"
 
   - name: Install Google Chrome
     apt:
