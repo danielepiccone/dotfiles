@@ -9,7 +9,7 @@ if test "$(uname)" = "Darwin"; then
 fi
 
 if test "$(uname)" = "Linux"; then
-  dependencies="shellcheck build-essential stow vim ansible feh"
+  dependencies="shellcheck build-essential stow vim ansible feh curl ack"
   echo "Installing $dependencies with apt."
   sudo apt-get install $dependencies
   exit 0

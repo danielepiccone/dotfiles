@@ -7,6 +7,6 @@ if test "$(uname)" = "Darwin"; then
 fi
 
 if test "$(uname)" = "Linux"; then
-  (cd ansible && provision.sh)
+  (cd ansible && ./provision.sh)
   exit 0
 fi
