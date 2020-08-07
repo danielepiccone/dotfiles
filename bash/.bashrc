@@ -127,9 +127,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Homebrew Python3 as default Python
-if [ -d /usr/local/opt/python/libexec/bin ]; then
-  export PATH=/usr/local/opt/python/libexec/bin:$PATH
+# Pyenv shims
+if [ -f /usr/local/bin/pyenv ]; then
+  eval "$(pyenv init -)"
 fi
 
 # Homebrew git bash completion
