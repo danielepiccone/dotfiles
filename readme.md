@@ -3,12 +3,8 @@
 deploy in ~/dotfiles
 
 ```
-git submodule update
-
-stow fonts
-stow bash
-stow vim
-stow tmux
+cd ~/dotfiles
+./install.sh
 ```
 
 Install dwm, slock and suckless tools
