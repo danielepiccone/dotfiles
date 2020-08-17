@@ -22,6 +22,10 @@ fi
 
 echo "Linking dotfiles..."
 
+if [[ -f ~/.bashrc ]]; then
+  mv ~/.bashrc /tmp/bashrc__backup
+fi
+
 stow bash
 stow vim
 stow tmux
