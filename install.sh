@@ -8,7 +8,7 @@ if [[  "$(uname)" = "Linux" ]]; then
     echo "Installing $dependencies with dnf..."
     sudo dnf install $dependencies -y
   else
-    dependencies="shellcheck stow vim ack tig"
+    dependencies="shellcheck stow vim ack tig ansible"
     echo "Installing $dependencies with apt..."
     sudo apt-get install $dependencies -y
   fi
