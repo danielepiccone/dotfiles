@@ -1,0 +1,46 @@
+---
+- name: Ensure old versions of Docker are not installed.
+  dnf:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-selinux
+      - docker-engine-selinux
+      - docker-engine
+    state: absent
+
+- name: Add Docker repository
+  get_url:
+    url: "https://download.docker.com/linux/fedora/docker-ce.repo"
+    dest: '/etc/yum.repos.d/docker-ce.repo'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install Docker
+  dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+#  - name: Enable Cgroups exceptions (Fedora > 31)
+#    shell:
+#      grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
+- name: Ensure group "docker" exists
+  group:
+    name: docker
+    state: present
+
+- name: Start docker
+  systemd:
+    name: docker
+    state: started
+

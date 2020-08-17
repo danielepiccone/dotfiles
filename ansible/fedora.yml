@@ -1,0 +1,47 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    current_user: "{{ user | default('dpi') }}"
+    fedora_release: 31
+  tasks:
+
+  - name: Install RPMFusion
+    dnf:
+      name:
+        - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_release }}.noarch.rpm"
+        - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ fedora_release }}.noarch.rpm"
+
+  - name: Install media codecs
+    dnf:
+      name:
+        - "lame*"
+        - "@Multimedia"
+      exclude:
+        - lame-devel
+
+  - name: Install desktop packages
+    dnf:
+      name:
+        - tlp
+        - tlp-rdw
+        - keepassxc
+        - chromium
+
+  - name: Install Dropbox
+    dnf:
+      name: "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm"
+
+  - name: Include Docker
+    include_tasks: tasks/fedora_docker.yml
+
+  - name: Assign user to the docker group
+    user:
+      name: "{{ current_user }}"
+      append: yes
+      groups:
+        - docker
+
+  - name: Include VSCode
+    import_tasks: tasks/vscode.yml
+
