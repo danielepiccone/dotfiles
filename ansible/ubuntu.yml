@@ -53,6 +53,7 @@
         - tlp
         - tlp-rdw
         - keepassxc
+        - gnome-tweak-tool
 
   - name: Install Dropbox
     apt:
