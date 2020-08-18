@@ -8,7 +8,7 @@ if [[  "$(uname)" = "Linux" ]]; then
     echo "Installing $dependencies with dnf..."
     sudo dnf install $dependencies -y
   else
-    dependencies="shellcheck stow vim ack tig ansible"
+    dependencies="shellcheck build-essential stow vim ack tig ansible"
     echo "Installing $dependencies with apt..."
     sudo apt-get install $dependencies -y
   fi
@@ -34,6 +34,7 @@ stow fonts
 echo "Building bins..."
 
 (cd fzf && make)
+(cd libinput-gestures && ./install.sh)
 
 echo "Linking bins..."
 
