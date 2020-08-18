@@ -6,6 +6,9 @@
     fedora_release: 31
   tasks:
 
+
+  # Base configuration
+
   - name: Install RPMFusion
     dnf:
       name:
@@ -20,6 +23,64 @@
       exclude:
         - lame-devel
 
+
+  # Docker
+
+  - name: Ensure old versions of Docker are not installed.
+    dnf:
+      name:
+        - docker
+        - docker-client
+        - docker-client-latest
+        - docker-common
+        - docker-latest
+        - docker-latest-logrotate
+        - docker-logrotate
+        - docker-selinux
+        - docker-engine-selinux
+        - docker-engine
+      state: absent
+
+  - name: Add Docker repository
+    get_url:
+      url: "https://download.docker.com/linux/fedora/docker-ce.repo"
+      dest: '/etc/yum.repos.d/docker-ce.repo'
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Install Docker
+    dnf:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      state: present
+
+  #  - name: Enable Cgroups exceptions (Fedora > 31)
+  #    shell:
+  #      grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
+  - name: Ensure group "docker" exists
+    group:
+      name: docker
+      state: present
+
+  - name: Assign user to the docker group
+    user:
+      name: "{{ current_user }}"
+      append: yes
+      groups:
+        - docker
+
+  - name: Start docker
+    systemd:
+      name: docker
+      state: started
+
+
+  # Desktop applications
+
   - name: Install desktop packages
     dnf:
       name:
@@ -32,16 +93,27 @@
     dnf:
       name: "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm"
 
-  - name: Include Docker
-    include_tasks: tasks/fedora_docker.yml
+  - name: Add Microsoft key
+    rpm_key:
+      state: present
+      key: https://packages.microsoft.com/keys/microsoft.asc
 
-  - name: Assign user to the docker group
-    user:
-      name: "{{ current_user }}"
-      append: yes
-      groups:
-        - docker
+  - name: Install VSCode repo
+    copy:
+      content: |
+         [code]
+         name=Visual Studio Code
+         baseurl=https://packages.microsoft.com/yumrepos/vscode
+         enabled=1
+         gpgcheck=1
+         gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+      dest: /etc/yum.repos.d/vscode.repo
 
-  - name: Include VSCode
-    import_tasks: tasks/vscode.yml
+  - name: Install VSCode
+    dnf:
+      name: code
 
+  - name: Import VSCode settings
+    synchronize:
+      src: vscode/.config/Code
+      dest: "/home/{{ current_user }}/.config/"

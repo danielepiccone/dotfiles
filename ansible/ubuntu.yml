@@ -1,12 +1,37 @@
 ---
-- hosts: all
+- hosts: localhost
+  connection: local
   vars:
-    current_user: "{{ user }}"
+    current_user: "{{ user | default('dpi') }}"
+    codename: "focal"
   tasks:
-  - name: Install Docker
+
+  # Docker
+
+  - name: Install Docker dependencies
     apt:
       pkg:
-        - docker.io
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+
+  - name: Install Docker GPG key
+    apt_key:
+      url: "https://download.docker.com/linux/ubuntu/gpg"
+
+  - name: Install Docker repository
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ codename }} stable"
+
+  - name: Install Docker
+    apt:
+      update_cache: yes
+      pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
 
   - name: Assign user to the docker group
     user:
@@ -15,27 +40,36 @@
       groups:
         - docker
 
-  - name: Install KeepassX
+  - name: Start docker
+    systemd:
+      name: docker
+      state: started
+
+  # Desktop applications
+
+  - name: Install laptop packages
     apt:
       pkg:
+        - tlp
+        - tlp-rdw
         - keepassxc
 
   - name: Install Dropbox
     apt:
-      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
-
-  - name: Install VScode
-    apt:
-      deb: https://az764295.vo.msecnd.net/stable/cd9ea6488829f560dc949a8b2fb789f3cdc05f5d/code_1.46.1-1592428892_amd64.deb
-
-  - name: Import vscode settings
-    copy:
-      src: vscode/.config/Code/User
-      dest: ~/.config/Code
-      directory_mode: yes
-    become: yes
-    become_user: "{{ current_user }}"
+      deb: "https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb"
 
   - name: Install Google Chrome
     apt:
-      deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+
+  - name: Install VScode
+    apt:
+      deb: "https://az764295.vo.msecnd.net/stable/cd9ea6488829f560dc949a8b2fb789f3cdc05f5d/code_1.46.1-1592428892_amd64.deb"
+
+  - name: Import VSCode settings
+    synchronize:
+      src: vscode/.config/Code
+      dest: "/home/{{ current_user }}/.config/"
+
+
+
