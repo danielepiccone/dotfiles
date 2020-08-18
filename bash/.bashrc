@@ -136,6 +136,8 @@ fi
 # Custom aliases
 alias vigit="git status --porcelain | awk '{ print $2 }')"
 alias activate='source ./venv/bin/activate'
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
 
 # Nvm
 export NVM_DIR="$HOME/.nvm"
@@ -147,17 +149,8 @@ if [ -f /usr/local/bin/pyenv ]; then
   eval "$(pyenv init -)"
 fi
 
-# Append current git branch in prompt
-# alternative to git provided __git_ps1()
-__parse_git_branch() {
-  if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    return 0
-  fi
-  echo $(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-}
-
 # Custom prompt
-export PS1='\[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__parse_git_branch)\[\e[0m\]$ '
+export PS1='\[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__git_parse_branch)\[\e[0m\]$ '
 
 # Set the terminal for VIM
 export TERM=xterm-256color
@@ -176,7 +169,33 @@ export EDITOR=vi
 which z > /dev/null && . `which z`
 
 # Custom functions
-source ~/dotfiles/utils/cd.sh
+# Append current git branch in prompt
+# alternative to git provided __git_ps1()
+function __git_parse_branch() {
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    return 0
+  fi
+  echo $(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+}
+
+# Perform check when changid directory
+function cd() {
+  builtin cd "$@"
+
+  # Check if a project is using a .nvmrc file
+  if [ -f '.nvmrc' ]
+  then
+    if ! command -v nvm &> /dev/null ; then
+      return
+    fi
+    EXPECTED=$(cat .nvmrc)
+    CURRENT=$(nvm current)
+    if ! [[ $CURRENT =~ $EXPECTED ]]
+    then
+      echo This project .nvmrc uses node $EXPECTED run 'nvm use' to update
+    fi
+  fi
+}
 
 # OSx Specific
 if [[ "$(uname)" = "Darwin" ]]; then

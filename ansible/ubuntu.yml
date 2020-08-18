@@ -32,6 +32,7 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
+        - docker-compose
 
   - name: Assign user to the docker group
     user:

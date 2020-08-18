@@ -1,61 +1,125 @@
 #!/usr/bin/env bash
+set -eo pipefail
 
-echo "Installing dependencies..."
+install::dotfiles(){
+  echo "Linking dotfiles..."
 
-if [[  "$(uname)" = "Linux" ]]; then
-  if [[ -e /etc/redhat-release ]]; then
-    dependencies="ShellCheck stow vim ack tig"
-    echo "Installing $dependencies with dnf..."
-    sudo dnf install $dependencies -y
-  else
-    dependencies="shellcheck build-essential stow vim ack tig ansible"
+  if [[ -f ~/.bashrc ]]; then
+    mv ~/.bashrc /tmp/bashrc__backup
+  fi
+
+  stow bash
+  stow vim
+  stow tmux
+  stow fonts
+}
+
+install::custombins(){
+  echo "Linking bins..."
+
+  for bin in ~/dotfiles/bin/*; do
+    sudo ln -s $bin /usr/local/bin/$(basename $bin) || echo "Already linked."
+  done
+}
+
+install::configscripts() {
+  echo "Executing configuration scripts..."
+
+  source scripts/install_fzf.sh
+  source scripts/install_libinput_gestures.sh
+}
+
+install::ubuntu() {
+    dependencies="\
+      shellcheck \
+      build-essential \
+      stow \
+      vim \
+      tmux \
+      ack \
+      tig \
+      xclip \
+      python3-paramiko \
+      ansible \
+    "
     echo "Installing $dependencies with apt..."
     sudo apt-get install $dependencies -y
-  fi
-fi
 
-if [[ "$(uname)" = "Darwin" ]]; then
-  dependencies="shellcheck coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep vim stow ansible tig"
+    install::dotfiles
+    install::custombins
+    install::configscripts
+
+    (cd ansible && sudo ansible-playbook ubuntu.yml)
+}
+
+install::fedora() {
+  dependencies="
+    ShellCheck \
+    stow \
+    vim \
+    ack \
+    tig\
+    xclip \
+  "
+  echo "Installing $dependencies with dnf..."
+  sudo dnf install $dependencies -y
+
+  install::dotfiles
+  install::custombins
+  install::configscripts
+
+  (cd ansible && sudo ansible-playbook fedora.yml)
+}
+
+install::darwin() {
+  dependencies="\
+    shellcheck \
+    coreutils \
+    findutils \
+    gnu-tar \
+    gnu-sed \
+    gawk \
+    gnutls \
+    gnu-indent \
+    gnu-getopt \
+    grep \
+    vim \
+    stow \
+    ansible \
+    tig \
+  "
   echo "Installing $dependencies with homebrew..."
   brew install $dependencies
-fi
 
-echo "Linking dotfiles..."
+  install::dotfiles
+  install::custombins
+  install::configscripts
+}
 
-if [[ -f ~/.bashrc ]]; then
-  mv ~/.bashrc /tmp/bashrc__backup
-fi
-
-stow bash
-stow vim
-stow tmux
-stow fonts
-
-echo "Building bins..."
-
-(cd fzf && make)
-(cd libinput-gestures && ./install.sh)
-
-echo "Linking bins..."
-
-sudo ln -s ~/dotfiles/bin/fzf /usr/local/bin/fzf
-sudo ln -s ~/dotfiles/bin/z /usr/local/bin/z
-sudo ln -s ~/dotfiles/bin/git-stats /usr/local/bin/git-stats
-sudo ln -s ~/dotfiles/bin/docker-purge /usr/local/bin/docker-purge
-
-echo "Installing applications..."
-
-if test "$(uname)" = "Darwin"; then
-  echo "Installing applications is not supported on Darwin."
+if [[ `pwd` != ~/dotfiles ]]; then
+  echo This script must be executed in ~/dotfiles. Exiting.
   exit 1
 fi
 
-if test "$(uname)" = "Linux"; then
-  echo "Provisioning the workstation..."
+echo "Requesting sudo privileges..."
+sudo true
 
+
+echo "Detecting platform..."
+
+if [[  $OSTYPE == "linux"* ]]; then
   if [[ -e /etc/redhat-release ]]; then
-    (cd ansible && sudo ansible-playbook fedora.yml)
-  else
-    (cd ansible && sudo ansible-playbook ubuntu.yml)
+    echo "Fedora detected."
+    install::fedora
   fi
+
+  if grep "Ubuntu" /etc/lsb-release &> /dev/null; then
+    echo "Ubuntu detected."
+    install::ubuntu
+  fi
+fi
+
+if [[ $OSTYPE == "darwin"* ]]; then
+  echo "Darwin detected."
+    install::darwin
 fi

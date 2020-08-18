@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
+set -eo pipefail
+
 #
 # Install libinput-gestures and configures it to enable three fingers scrolling
 #
 
 rm -rf libinput-gestures
 git clone https://github.com/bulletmark/libinput-gestures
+trap "rm -rf libinput-gestures" EXIT ERR SIGINT
 
 (cd libinput-gestures && sudo make install)
 
@@ -20,8 +23,3 @@ sudo gpasswd -a $USER input
 
 libinput-gestures-setup autostart
 libinput-gestures-setup start
-
-echo "*** Reboot to apply changes to groups ***"
-
-rm -rf libinput-gestures
-trap "rm -rf libinput-gestures" exit
