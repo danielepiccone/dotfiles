@@ -169,6 +169,9 @@ export NODE_ENV=development
 # ref. https://stackoverflow.com/questions/56716993/error-message-when-starting-vim-failed-to-set-locale-category-lc-numeric-to-en
 export LC_ALL=en_US.UTF-8
 
+# Export the default editor, used by git
+export EDITOR=vi
+
 # Z
 which z > /dev/null && . `which z`
 
