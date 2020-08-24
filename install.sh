@@ -4,14 +4,12 @@ set -eo pipefail
 install::dotfiles(){
   echo "Linking dotfiles..."
 
-  if [[ -f ~/.bashrc ]]; then
-    mv ~/.bashrc /tmp/bashrc__backup
-  fi
-
+  trap "echo Cleanup current dotfiles before linking." ERR
   stow bash
   stow vim
   stow tmux
   stow fonts
+  trap - ERR
 }
 
 install::custombins(){
@@ -49,7 +47,7 @@ install::ubuntu() {
     install::custombins
     install::configscripts
 
-    (cd ansible && sudo ansible-playbook ubuntu.yml)
+    (cd scripts/playbooks && sudo ansible-playbook desktop_ubuntu.yml)
 }
 
 install::fedora() {
@@ -68,7 +66,7 @@ install::fedora() {
   install::custombins
   install::configscripts
 
-  (cd ansible && sudo ansible-playbook fedora.yml)
+  (cd scripts/playbooks && sudo ansible-playbook desktop_fedora.yml)
 }
 
 install::darwin() {
