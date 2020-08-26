@@ -73,12 +73,12 @@ function! s:FindPythonInterp() " {{{1
 
     if has('unix')
         let l:searching_list = [
+                    \ 'python3',
                     \ 'python',
                     \ 'python27',
                     \ 'python26',
                     \ 'python25',
                     \ 'python24',
-                    \ 'python3',
                     \ '/usr/local/bin/python',
                     \ '/usr/local/bin/python27',
                     \ '/usr/local/bin/python26',
