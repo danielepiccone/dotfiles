@@ -37,7 +37,7 @@ install::ubuntu() {
       ack \
       tig \
       xclip \
-      python3-paramiko \
+      curl \
       ansible \
     "
     echo "Installing $dependencies with apt..."
@@ -99,6 +99,14 @@ if [[ `pwd` != ~/dotfiles ]]; then
   exit 1
 fi
 
+if ! git config --get user.name &> /dev/null; then
+  git config --global user.name "Daniele Piccone"
+fi
+
+if ! git config --get user.email &> /dev/null; then
+  git config --global user.email "mild.taste@gmail.com"
+fi
+
 echo "Requesting sudo privileges..."
 sudo true
 
@@ -118,6 +126,6 @@ if [[  $OSTYPE == "linux"* ]]; then
 fi
 
 if [[ $OSTYPE == "darwin"* ]]; then
-  echo "Darwin detected."
+    echo "Darwin detected."
     install::darwin
 fi
