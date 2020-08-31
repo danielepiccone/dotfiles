@@ -104,7 +104,7 @@ if ! git config --get user.name &> /dev/null; then
 fi
 
 if ! git config --get user.email &> /dev/null; then
-  git config --global user.email "mild.taste@gmail.com"
+  git config --global user.email "mail@danielepiccone.com"
 fi
 
 echo "Requesting sudo privileges..."
