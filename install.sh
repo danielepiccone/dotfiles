@@ -38,6 +38,7 @@ install::ubuntu() {
       tig \
       xclip \
       curl \
+      jq \
       ansible \
     "
     echo "Installing $dependencies with apt..."
@@ -57,6 +58,7 @@ install::fedora() {
     vim \
     ack \
     tig\
+      jq \
     xclip \
   "
   echo "Installing $dependencies with dnf..."
@@ -84,6 +86,7 @@ install::darwin() {
     vim \
     stow \
     ansible \
+    jq \
     tig \
   "
   echo "Installing $dependencies with homebrew..."
