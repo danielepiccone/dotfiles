@@ -233,7 +233,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
     \ 'javascript': ['prettier'],
     \ 'typescript': ['prettier'],
-    \ 'python': ['black']
+    \ 'python': ['black'],
+    \ 'terraform': ['terraform']
 \ }
 
 " ctags
@@ -370,5 +371,5 @@ endfunction
 set includeexpr=SetIncludeExprJS(v:fname)
 
 command! FoldTests execute "%g/^\\s*it(.* => {/normal! zf%"
-
-command! PrettierOnSave execute let g:ale_fix_on_save = 1
+command! FixOnSaveEnable execute "let g:ale_fix_on_save = 1"
+command! FixOnSaveDisable execute "let g:ale_fix_on_save = 0"
