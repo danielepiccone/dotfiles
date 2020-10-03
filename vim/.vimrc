@@ -226,6 +226,7 @@ filetype indent off
 
 " Enable custom standard linters in JS
 let g:ale_linters = {
+    \ 'c': [],
     \ 'javascript': ['eslint'],
     \ 'python': ['pycodestyle']
 \ }
