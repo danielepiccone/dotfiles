@@ -369,7 +369,8 @@ function! SetIncludeExprJS(fname)
     endif
 endfunction
 
-set includeexpr=SetIncludeExprJS(v:fname)
+autocmd BufNewFile,BufRead *.js set includeexpr=SetIncludeExprJS(v:fname)
+autocmd BufNewFile,BufRead *.ts set includeexpr=SetIncludeExprJS(v:fname)
 
 command! FoldTests execute "%g/^\\s*it(.* => {/normal! zf%"
 command! FixOnSaveEnable execute "let g:ale_fix_on_save = 1"
