@@ -1,1 +1,1 @@
-docker ps -a | cut -f1 -d" " | xargs -I{} docker rm -f {}
+docker ps -a | cut -f1 -d" " | xargs -I{} docker rm {}
