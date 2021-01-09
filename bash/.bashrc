@@ -142,3 +142,11 @@ if [[ "$OSTTYPE" == "darwin"* ]]; then
   fi
 fi
 
+# Source a global environment if present
+if [ -f ~/global.env ]; then
+  while read -r line; do
+    if [ ! -z $line ]; then
+      export ${line}
+    fi
+  done < ~/global.env
+fi
