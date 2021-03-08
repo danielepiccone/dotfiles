@@ -108,7 +108,7 @@ export EDITOR=vi
 which z > /dev/null && . `which z`
 
 # Append current git branch in prompt (alternative to git provided __git_ps1())
-function __git_parse_branch() {
+__git_parse_branch() {
   if ! git rev-parse --git-dir > /dev/null 2>&1; then
     return 0
   fi
@@ -116,7 +116,7 @@ function __git_parse_branch() {
 }
 
 # Perform check when changid directory
-function cd() {
+cd() {
   builtin cd "$@"
 
   # Check if a project is using a .nvmrc file
@@ -132,6 +132,20 @@ function cd() {
       echo This project .nvmrc uses node $EXPECTED run 'nvm use' to update
     fi
   fi
+}
+
+prompt() {
+  case $1 in
+    aws)
+      export PS1="\[\e[0;33m\]\${AWS_REGION:-no region}\[\e[0m\] \[\e[32m\]\${AWS_PROFILE:-no profile}\[\e[0m\] \w > "
+    ;;
+
+    *)
+      echo "Use $ prompt aws"
+      echo "Setting the default prompt."
+      export PS1='\[\e[0;33m\]\w\[\e[0m\] \[\e[35m\]$(__git_parse_branch)\[\e[0m\]$ '
+    ;;
+  esac
 }
 
 # OSx Specific
