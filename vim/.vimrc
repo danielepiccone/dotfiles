@@ -228,7 +228,7 @@ filetype indent off
 let g:ale_linters = {
     \ 'c': [],
     \ 'javascript': ['eslint'],
-    \ 'python': ['pycodestyle']
+    \ 'python': ['flake8']
 \ }
 
 let g:ale_fixers = {
