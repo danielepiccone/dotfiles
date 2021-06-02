@@ -316,6 +316,9 @@ autocmd FileType ocaml setlocal commentstring=(*\ %s\ *)
 " Python specific
 autocmd FileType python set commentstring=#\%s
 
+" Terraform specific
+autocmd FileType terraform set commentstring=#\%s
+
 """ OSX specific
 if has('macunix')
   " colors default
