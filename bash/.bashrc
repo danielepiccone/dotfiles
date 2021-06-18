@@ -12,6 +12,12 @@ if [[ -d "$HOME/.local/bin" ]] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Include go if present
+if [ -d /usr/local/go ]; then
+  PATH=$PATH:/usr/local/go/bin
+fi
+
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
