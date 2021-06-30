@@ -1,0 +1,4 @@
+#!/bin/sh
+name=`xinput 2>&1 | grep -E "Synaptics [\sA-Za-z0-9-]*" -o`
+xinput set-prop "$name" 'libinput Tapping Enabled' 1
+
