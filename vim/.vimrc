@@ -235,7 +235,8 @@ let g:ale_fixers = {
     \ 'javascript': ['prettier'],
     \ 'typescript': ['prettier'],
     \ 'python': ['black'],
-    \ 'terraform': ['terraform']
+    \ 'terraform': ['terraform'],
+    \ 'go': ['gofmt']
 \ }
 
 " ctags
