@@ -170,3 +170,8 @@ if [ -f ~/global.env ]; then
     fi
   done < ~/global.env
 fi
+
+# Configure X applications
+if [ -f ~/.Xresources ]; then
+  xrdb -merge ~/.Xresources
+fi
