@@ -102,14 +102,6 @@ if [[ `pwd` != ~/dotfiles ]]; then
   exit 1
 fi
 
-if ! git config --get user.name &> /dev/null; then
-  git config --global user.name "Daniele Piccone"
-fi
-
-if ! git config --get user.email &> /dev/null; then
-  git config --global user.email "mail@danielepiccone.com"
-fi
-
 echo "Requesting sudo privileges..."
 sudo true
 
