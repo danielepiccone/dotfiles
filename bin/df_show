@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+filename=$1
+extension=hdf
+
+python -c "import pandas as pd; print(pd.read_hdf('$1'))"
+
